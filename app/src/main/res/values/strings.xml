@@ -6,4 +6,5 @@
     <string name="command_title">title</string>
     <string name="command">command</string>
     <string name="command_delete" >delete</string>
+    <string name="editNotice">Long press on a button to edit</string>
 </resources>

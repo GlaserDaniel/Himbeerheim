@@ -53,21 +53,27 @@ class MainActivityFragment() : Fragment() {
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
 
-        var view = inflater!!.inflate(R.layout.fragment_main, container, false)
+        val view = inflater!!.inflate(R.layout.fragment_main, container, false)
 
-        sshConnection = SSHConnection(hostname = "192.168.178.43", port = 22, username = "pi", password = "Roter!Weg!3")
+        sshConnection = data.sshConnection
 
         for (buttonCommand: ButtonCommand in data.buttonCommands) {
             view.buttonsLinearLayout.addView(makeButton(buttonCommand))
         }
 
         view.fab.setOnClickListener {
-            var newButtonCommand = ButtonCommand("Licht An", "sudo ./send 01111 4 1")
+            val newButtonCommand = ButtonCommand("Licht An", "sudo ./send 01111 4 1")
 
             data.buttonCommands.add(newButtonCommand)
-            data.save()
 
             view.buttonsLinearLayout.addView(makeButton(newButtonCommand))
+            mCallback.onButtonCommandSelected(newButtonCommand)
+
+            if (data.editNoticeCounter > 0) {
+                Toast.makeText(context, getString(R.string.editNotice), Toast.LENGTH_SHORT).show()
+                data.editNoticeCounter--
+            }
+            data.save()
         }
 
         return view
