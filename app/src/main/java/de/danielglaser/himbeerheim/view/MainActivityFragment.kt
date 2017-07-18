@@ -1,5 +1,6 @@
 package de.danielglaser.himbeerheim.view
 
+import android.content.Context
 import android.support.v4.app.Fragment
 import android.os.Bundle
 import android.support.v7.widget.Toolbar
@@ -16,7 +17,11 @@ import kotlinx.android.synthetic.main.fragment_main.view.*
 /**
  * A placeholder fragment containing a simple view.
  */
-class MainActivityFragment : Fragment() {
+class MainActivityFragment() : Fragment() {
+
+    constructor(data: Data) : this() {
+        this.data = data
+    }
 
     lateinit var data: Data
 
@@ -25,8 +30,6 @@ class MainActivityFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true)
-
-        data = Data()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater) {
@@ -67,27 +70,6 @@ class MainActivityFragment : Fragment() {
             view.buttonsLinearLayout.addView(makeButton(newButtonCommand))
         }
 
-
-        view.buttonLightOn.setOnClickListener {
-            sshConnection.sendSSHCommand(command = "sudo ./send 01111 4 1")
-        }
-
-        view.buttonLightOff.setOnClickListener {
-            sshConnection.sendSSHCommand(command = "sudo ./send 01111 4 0")
-        }
-
-        view.buttonTVOn.setOnClickListener {
-            sshConnection.sendSSHCommand(command = "sudo ./send 01110 3 1")
-        }
-
-        view.buttonTVOff.setOnClickListener {
-            sshConnection.sendSSHCommand(command = "sudo ./send 01110 3 0")
-        }
-
-        view.buttonPowerOff.setOnClickListener {
-            sshConnection.sendSSHCommand(command = "sudo shutdown -h 0")
-        }
-
         return view
     }
 
@@ -99,24 +81,28 @@ class MainActivityFragment : Fragment() {
             sshConnection.sendSSHCommand(command = buttonCommand.command)
         }
         button.setOnLongClickListener{
-            Toast.makeText(context, "Long Click", Toast.LENGTH_SHORT).show()
-
-            val manager = activity.supportFragmentManager
-            val newFragment = EditCommandFragment()
-            /*
-            val args = Bundle()
-            args.putInt(ArticleFragment.ARG_POSITION, position)
-            newFragment.setArguments(args)
-            */
-
-            val trans = manager.beginTransaction()
-            trans.addToBackStack(null)
-            trans.replace(R.id.fragment_container, newFragment)
-            trans.commit()
+            mCallback.onButtonCommandSelected(buttonCommand)
 
             true
         }
         return button
     }
 
+    lateinit var mCallback: OnButtonCommandSelectedListener
+
+    // Container Activity must implement this interface
+    interface OnButtonCommandSelectedListener {
+        fun onButtonCommandSelected(buttonCommand: ButtonCommand)
+    }
+
+    override fun onAttach(context: Context?) {
+        super.onAttach(context)
+        // This makes sure that the container activity has implemented
+        // the callback interface. If not, it throws an exception
+        try {
+            mCallback = context as OnButtonCommandSelectedListener
+        } catch (e: ClassCastException) {
+            throw ClassCastException(context.toString() + " must implement OnHeadlineSelectedListener")
+        }
+    }
 }
