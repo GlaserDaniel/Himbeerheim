@@ -1,9 +1,8 @@
 package de.danielglaser.himbeerheim.model
 
 import android.content.ContentValues
-import android.content.Context
 import android.util.Log
-import de.danielglaser.himbeerheim.MainActivity
+import de.danielglaser.himbeerheim.view.MainActivity
 import java.io.*
 
 /**

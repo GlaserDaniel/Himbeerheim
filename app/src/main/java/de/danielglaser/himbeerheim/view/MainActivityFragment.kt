@@ -1,4 +1,4 @@
-package de.danielglaser.himbeerheim
+package de.danielglaser.himbeerheim.view
 
 import android.support.v4.app.Fragment
 import android.os.Bundle
@@ -6,6 +6,8 @@ import android.support.v7.widget.Toolbar
 import android.view.*
 import android.widget.Button
 import android.widget.Toast
+import de.danielglaser.himbeerheim.R
+import de.danielglaser.himbeerheim.model.SSHConnection
 import de.danielglaser.himbeerheim.model.ButtonCommand
 import de.danielglaser.himbeerheim.model.Data
 
@@ -17,6 +19,8 @@ import kotlinx.android.synthetic.main.fragment_main.view.*
 class MainActivityFragment : Fragment() {
 
     lateinit var data: Data
+
+    lateinit var sshConnection: SSHConnection
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,35 +52,24 @@ class MainActivityFragment : Fragment() {
 
         var view = inflater!!.inflate(R.layout.fragment_main, container, false)
 
+        sshConnection = SSHConnection(hostname = "192.168.178.43", port = 22, username = "pi", password = "Roter!Weg!3")
 
         for (buttonCommand: ButtonCommand in data.buttonCommands) {
-            val button = Button(context)
-            button.text = buttonCommand.title
-            button.layoutParams = Toolbar.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
-
-            view.buttonsLinearLayout.addView(button)
+            view.buttonsLinearLayout.addView(makeButton(buttonCommand))
         }
 
         view.fab.setOnClickListener {
-            val button = Button(context)
-            button.text = "Test"
-            button.layoutParams = Toolbar.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+            var newButtonCommand = ButtonCommand("Licht An", "sudo ./send 01111 4 1")
 
-            data.buttonCommands.add(ButtonCommand("Test", ""))
+            data.buttonCommands.add(newButtonCommand)
             data.save()
 
-            view.buttonsLinearLayout.addView(button)
+            view.buttonsLinearLayout.addView(makeButton(newButtonCommand))
         }
 
-        var sshConnection = SSHConnection(hostname = "192.168.178.43", port = 22, username = "pi", password = "Roter!Weg!3")
 
         view.buttonLightOn.setOnClickListener {
             sshConnection.sendSSHCommand(command = "sudo ./send 01111 4 1")
-        }
-
-        view.buttonLightOn.setOnLongClickListener {
-            Toast.makeText(context, "Long Click", Toast.LENGTH_SHORT).show()
-            true
         }
 
         view.buttonLightOff.setOnClickListener {
@@ -96,6 +89,34 @@ class MainActivityFragment : Fragment() {
         }
 
         return view
+    }
+
+    private fun makeButton(buttonCommand: ButtonCommand) : Button {
+        val button = Button(context)
+        button.text = buttonCommand.title
+        button.layoutParams = Toolbar.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+        button.setOnClickListener {
+            sshConnection.sendSSHCommand(command = buttonCommand.command)
+        }
+        button.setOnLongClickListener{
+            Toast.makeText(context, "Long Click", Toast.LENGTH_SHORT).show()
+
+            val manager = activity.supportFragmentManager
+            val newFragment = EditCommandFragment()
+            /*
+            val args = Bundle()
+            args.putInt(ArticleFragment.ARG_POSITION, position)
+            newFragment.setArguments(args)
+            */
+
+            val trans = manager.beginTransaction()
+            trans.addToBackStack(null)
+            trans.replace(R.id.fragment_container, newFragment)
+            trans.commit()
+
+            true
+        }
+        return button
     }
 
 }

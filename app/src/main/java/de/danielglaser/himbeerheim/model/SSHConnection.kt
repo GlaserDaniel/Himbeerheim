@@ -1,4 +1,4 @@
-package de.danielglaser.himbeerheim
+package de.danielglaser.himbeerheim.model
 
 import android.os.AsyncTask
 import com.jcraft.jsch.ChannelExec

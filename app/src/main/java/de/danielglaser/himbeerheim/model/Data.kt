@@ -1,6 +1,6 @@
 package de.danielglaser.himbeerheim.model
 
-import de.danielglaser.himbeerheim.MainActivity
+import de.danielglaser.himbeerheim.view.MainActivity
 import de.danielglaser.himbeerheim.R
 import java.io.Serializable
 

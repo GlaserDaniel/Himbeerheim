@@ -5,10 +5,9 @@
     android:id="@+id/fragment_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="de.danielglaser.himbeerheim.MainActivityFragment"
+    tools:context="de.danielglaser.himbeerheim.view.MainActivityFragment"
     tools:layout_editor_absoluteX="0dp"
-    tools:layout_editor_absoluteY="137dp"
-    tools:showIn="@layout/activity_main">
+    tools:layout_editor_absoluteY="137dp" >
 
     <ScrollView
         android:layout_width="0dp"
