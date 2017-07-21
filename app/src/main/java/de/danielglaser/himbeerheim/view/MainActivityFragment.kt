@@ -21,6 +21,7 @@ class MainActivityFragment() : Fragment() {
 
     constructor(data: Data) : this() {
         this.data = data
+        retainInstance = true
     }
 
     lateinit var data: Data
