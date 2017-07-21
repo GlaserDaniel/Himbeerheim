@@ -27,13 +27,18 @@ class MainActivity : AppCompatActivity(), MainActivityFragment.OnButtonCommandSe
 
         data = Data()
 
+        if (savedInstanceState != null) {
+            return;
+        }
+
+        // Wenn App das erste mal startet
+
         if (data.buttonCommands.size == 0) {
             // Erste Buttons hinzufügen
             data.buttonCommands.add(ButtonCommand("Licht An", "sudo ./send 01111 4 1"))
             data.buttonCommands.add(ButtonCommand("Licht Aus", "sudo ./send 01111 4 0"))
             data.buttonCommands.add(ButtonCommand("TV An", "sudo ./send 01110 3 1"))
             data.buttonCommands.add(ButtonCommand("TV Aus", "sudo ./send 01110 3 0"))
-            data.buttonCommands.add(ButtonCommand("Raspberry Aus", "sudo shutdown -h 0"))
         }
 
         loadMainActivityFragment()

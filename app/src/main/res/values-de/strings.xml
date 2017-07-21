@@ -7,4 +7,5 @@
     <string name="command">Befehl</string>
     <string name="command_delete" >löschen</string>
     <string name="editNotice">Zum Bearbeiten lange auf einen Button drücken</string>
+    <string name="powerOffRaspberryPi">Pi ausschalten</string>
 </resources>

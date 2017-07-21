@@ -16,6 +16,7 @@ import kotlinx.android.synthetic.main.fragment_edit_command.view.*
 class EditCommandFragment() : Fragment() {
 
     constructor(buttonCommand: ButtonCommand) : this() {
+        retainInstance = true
         this.buttonCommand = buttonCommand
     }
 

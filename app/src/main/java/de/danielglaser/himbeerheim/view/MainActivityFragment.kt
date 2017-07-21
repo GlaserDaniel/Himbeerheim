@@ -20,8 +20,8 @@ import kotlinx.android.synthetic.main.fragment_main.view.*
 class MainActivityFragment() : Fragment() {
 
     constructor(data: Data) : this() {
-        this.data = data
         retainInstance = true
+        this.data = data
     }
 
     lateinit var data: Data
@@ -43,6 +43,12 @@ class MainActivityFragment() : Fragment() {
         when (item.itemId) {
             R.id.action_settings -> {
                 Toast.makeText(context, "Settings", Toast.LENGTH_SHORT).show()
+                return true
+            }
+            R.id.action_powerOffRaspberryPi -> {
+                Toast.makeText(context, "Schalte Raspberry Pi aus", Toast.LENGTH_SHORT).show();
+                val result = sshConnection.sendSSHCommand("sudo shutdown -h 0");
+                Toast.makeText(context, "Result: " + result, Toast.LENGTH_SHORT).show();
                 return true
             }
         //R.id.search -> consume { MenuItemCompat.expandActionView(item) }
