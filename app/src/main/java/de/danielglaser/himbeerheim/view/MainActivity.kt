@@ -44,6 +44,11 @@ class MainActivity : AppCompatActivity(), MainActivityFragment.OnButtonCommandSe
         loadMainActivityFragment()
     }
 
+    override fun onPause() {
+        super.onPause()
+        data.save()
+    }
+
     private fun loadMainActivityFragment() {
         val manager = supportFragmentManager
         manager.popBackStack()
@@ -74,6 +79,7 @@ class MainActivity : AppCompatActivity(), MainActivityFragment.OnButtonCommandSe
     }
 
     override fun onCancelSelectedListener() {
+        data.save()
         loadMainActivityFragment()
     }
 

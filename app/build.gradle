@@ -3,7 +3,10 @@ apply plugin: 'kotlin-android'
 
 android {
     signingConfigs {
-
+        debug {
+            storeFile file('C:/Users/Daniel/.android/debug.keystore')
+            storePassword 'android'
+        }
     }
     compileSdkVersion 26
     buildToolsVersion "25.0.3"
@@ -12,8 +15,9 @@ android {
         minSdkVersion 16
         targetSdkVersion 26
         versionCode 1
-        versionName "1.0"
+        versionName '0.3'
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        versionNameSuffix 'beta'
     }
     buildTypes {
         release {
@@ -21,7 +25,10 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
         debug {
+            signingConfig signingConfigs.debug
         }
+    }
+    productFlavors {
     }
 }
 
