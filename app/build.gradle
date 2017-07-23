@@ -15,7 +15,7 @@ android {
         minSdkVersion 16
         targetSdkVersion 26
         versionCode 1
-        versionName '0.3'
+        versionName '0.3.1'
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         versionNameSuffix 'beta'
     }
@@ -23,9 +23,43 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            applicationVariants.all { variant ->
+                variant.outputs.each { output ->
+                    /*def date = new Date();
+                    def formattedDate = date.format('yyyyMMddHHmmss')*/
+                    def appName = variant.applicationId
+                    //def appId = variant.applicationId
+                    def versionName = variant.versionName
+
+                    //def versionCode = variant.versionCode
+                    //def flavorName = variant.flavorName // e. g. free
+                    //def buildType = variant.buildType // e. g. debug
+                    def variantName = variant.name // e. g. freeDebug
+
+                    def apkName = appName + '_' + variantName + '_' + versionName + '.apk';
+                    output.outputFile = new File(output.outputFile.parentFile, apkName)
+                }
+            }
         }
         debug {
             signingConfig signingConfigs.debug
+            applicationVariants.all { variant ->
+                variant.outputs.each { output ->
+                    /*def date = new Date();
+                    def formattedDate = date.format('yyyyMMddHHmmss')*/
+                    def appName = variant.applicationId
+                    //def appId = variant.applicationId
+                    def versionName = variant.versionName
+
+                    //def versionCode = variant.versionCode
+                    //def flavorName = variant.flavorName // e. g. free
+                    //def buildType = variant.buildType // e. g. debug
+                    def variantName = variant.name // e. g. freeDebug
+
+                    def apkName = appName + '_' + variantName + '_' + versionName + '.apk';
+                    output.outputFile = new File(output.outputFile.parentFile, apkName)
+                }
+            }
         }
     }
     productFlavors {
