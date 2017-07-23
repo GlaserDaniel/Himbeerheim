@@ -8,4 +8,6 @@
     <string name="command_delete">delete</string>
     <string name="editNotice">Long press on a button to edit</string>
     <string name="powerOffRaspberryPi">Power off Pi</string>
+    <string name="command_button_on">on</string>
+    <string name="command_button_off">off</string>
 </resources>

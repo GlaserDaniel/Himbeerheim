@@ -36,7 +36,6 @@ class MainActivityFragment() : Fragment() {
     override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater) {
         inflater.inflate(R.menu.menu_main, menu)
         super.onCreateOptionsMenu(menu, inflater)
-
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -64,16 +63,15 @@ class MainActivityFragment() : Fragment() {
 
         sshConnection = data.sshConnection
 
-        for (buttonCommand: ButtonCommand in data.buttonCommands) {
-            view.buttonsLinearLayout.addView(makeButton(buttonCommand))
-        }
+        var commandsAdapter = CommandsAdapter(context, data.buttonCommands, sshConnection, mCallback)
+
+        view.buttons_gridView.adapter = commandsAdapter
 
         view.fab.setOnClickListener {
-            val newButtonCommand = ButtonCommand("Licht An", "sudo ./send 01111 4 1")
+            val newButtonCommand = ButtonCommand("Licht", "01111 4")
 
             data.buttonCommands.add(newButtonCommand)
 
-            view.buttonsLinearLayout.addView(makeButton(newButtonCommand))
             mCallback.onButtonCommandSelected(newButtonCommand)
 
             if (data.editNoticeCounter > 0) {
@@ -81,6 +79,8 @@ class MainActivityFragment() : Fragment() {
                 data.editNoticeCounter--
             }
             data.save()
+
+            commandsAdapter.notifyDataSetChanged()
         }
 
         return view
