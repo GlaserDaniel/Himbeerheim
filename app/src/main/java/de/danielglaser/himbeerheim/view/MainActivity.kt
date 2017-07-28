@@ -35,8 +35,15 @@ class MainActivity : AppCompatActivity(), MainActivityFragment.OnButtonCommandSe
 
         if (data.buttonCommands.size == 0) {
             // Erste Buttons hinzufügen
-            data.buttonCommands.add(ButtonCommand("Licht", 0, 1, 1, 1, 1, 4))
-            data.buttonCommands.add(ButtonCommand("TV", 0, 1, 1, 1, 0, 4))
+            var code = ArrayList<Any>()
+            code.add(0)
+            code.add(1)
+            code.add(1)
+            code.add(1)
+            code.add(1)
+            data.buttonCommands.add(ButtonCommand("Licht", code, 4))
+            code[4] = 0
+            data.buttonCommands.add(ButtonCommand("TV", code, 4))
         }
 
         loadMainActivityFragment()

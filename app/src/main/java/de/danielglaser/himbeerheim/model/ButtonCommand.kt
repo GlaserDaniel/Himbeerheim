@@ -1,6 +1,5 @@
 package de.danielglaser.himbeerheim.model
 
-import android.widget.Button
 import java.io.Serializable
 
 /**
@@ -9,32 +8,101 @@ import java.io.Serializable
 class ButtonCommand : Serializable {
 
     companion object {
-        private const val serialVersionUID: Long = 1
+        private const val serialVersionUID: Long = 2
     }
 
     var title: String = ""
 
-    var code1: Int = 0
-    var code2: Int = 0
-    var code4: Int = 0
-    var code5: Int = 0
-    var code3: Int = 0
+    private var m_code: ArrayList<Int> = ArrayList()
 
-    var letter: Int = 1
+    private var m_letter: Int = 1
 
     var command: String = ""
         get() {
-        return code1.toString() + "" + code2.toString() + "" + code3.toString() + "" + code4.toString() + "" + code5.toString() + " " + letter.toString()
+            var commandString = ""
+            for (c in m_code)
+                commandString += c.toString()
+            commandString += " " + m_letter.toString()
+        return commandString
     }
 
-    constructor(title: String, code1: Int, code2: Int, code3: Int, code4: Int, code5: Int, letter: Int) {
+    constructor(title: String, code: ArrayList<Any>, letter: Int) {
         this.title = title
-        this.code1 = code1
-        this.code2 = code2
-        this.code3 = code3
-        this.code4 = code4
-        this.code5 = code5
-        this.letter = letter
+        setCode(code)
+        this.m_letter = letter
+    }
+
+    fun getCode() : ArrayList<Int> {
+        return m_code
+    }
+
+    fun getCodeBool() : ArrayList<Boolean> {
+        var code: ArrayList<Boolean> = ArrayList()
+         m_code.mapTo(code) { intToBool(it) }
+
+        return code
+    }
+
+    fun setCode(code: ArrayList<Any>) {
+        if (!code.isEmpty() && code[0] is Int) {
+            m_code.clear()
+            code.mapTo(m_code) {it as Int}
+        }
+        else if (!code.isEmpty() && code[0] is Boolean) {
+            m_code.clear()
+            code.mapTo(m_code) { boolToInt(it as Boolean) }
+        } else {
+            // TODO
+        }
+    }
+
+    fun getLetter() : Int {
+        return m_letter
+    }
+
+    fun getLetterString() : String {
+        return intToLetter(m_letter)
+    }
+
+    fun setLetter(letter: Any) {
+        if (letter is String) {
+            m_letter = letterToInt(letter)
+        } else if (letter is Int) {
+            m_letter = letter
+        }
+
+    }
+
+    private fun boolToInt(bool: Boolean) : Int {
+        if (bool) {
+            return 1
+        } else {
+            return 0
+        }
+    }
+
+    private fun intToBool(int: Int) : Boolean {
+        return int == 1
+    }
+
+    private fun letterToInt(letter: String) : Int {
+        when (letter) {
+            "A" -> return 1
+            "B" -> return 2
+            "C" -> return 3
+            "D" -> return 4
+        }
+        return 0
+    }
+
+    private fun intToLetter(int: Int) : String {
+        when (int) {
+            1 -> return "A"
+            2 -> return "B"
+            3 -> return "C"
+            4 -> return "D"
+        }
+        return "A"
     }
 
 }

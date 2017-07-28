@@ -68,7 +68,13 @@ class MainActivityFragment() : Fragment() {
         view.buttons_gridView.adapter = commandsAdapter
 
         view.fab.setOnClickListener {
-            val newButtonCommand = ButtonCommand("Licht", 0, 1, 1, 1, 1, 4)
+            var code = ArrayList<Any>()
+            code.add(0)
+            code.add(1)
+            code.add(1)
+            code.add(1)
+            code.add(1)
+            val newButtonCommand = ButtonCommand("Licht", code, 4)
 
             data.buttonCommands.add(newButtonCommand)
 

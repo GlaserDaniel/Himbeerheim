@@ -33,13 +33,15 @@ class EditCommandFragment() : Fragment() {
         view.title_EditText.setText(buttonCommand.title)
         //view.command_EditText.setText(buttonCommand.command)
 
-        view.switch1.isChecked = intToBool(buttonCommand.code1)
-        view.switch2.isChecked = intToBool(buttonCommand.code2)
-        view.switch3.isChecked = intToBool(buttonCommand.code3)
-        view.switch4.isChecked = intToBool(buttonCommand.code4)
-        view.switch5.isChecked = intToBool(buttonCommand.code5)
+        val code = buttonCommand.getCodeBool()
 
-        view.spinner.setSelection(getIndex(view.spinner, intToLetter(buttonCommand.letter)))
+        view.switch1.isChecked = code[0]
+        view.switch2.isChecked = code[1]
+        view.switch3.isChecked = code[2]
+        view.switch4.isChecked = code[3]
+        view.switch5.isChecked = code[4]
+
+        view.spinner.setSelection(getIndex(view.spinner, buttonCommand.getLetterString()))
 
         view.cancel_Button.setOnClickListener {
             mCallback.onCancelSelectedListener()
@@ -53,50 +55,21 @@ class EditCommandFragment() : Fragment() {
             buttonCommand.title = view.title_EditText.text.toString()
             //buttonCommand.command = view.command_EditText.text.toString()
 
-            buttonCommand.code1 = boolToInt(view.switch1.isChecked)
-            buttonCommand.code2 = boolToInt(view.switch2.isChecked)
-            buttonCommand.code3 = boolToInt(view.switch3.isChecked)
-            buttonCommand.code4 = boolToInt(view.switch4.isChecked)
-            buttonCommand.code5 = boolToInt(view.switch5.isChecked)
+            var code = ArrayList<Any>()
+            code.add(view.switch1.isChecked)
+            code.add(view.switch2.isChecked)
+            code.add(view.switch3.isChecked)
+            code.add(view.switch4.isChecked)
+            code.add(view.switch5.isChecked)
 
-            buttonCommand.letter = letterToInt(view.spinner.selectedItem as String)
+            buttonCommand.setCode(code)
+
+            buttonCommand.setLetter(view.spinner.selectedItem)
 
             mCallback.onSaveSelectedListener()
         }
 
         return view
-    }
-
-    private fun boolToInt(bool: Boolean) : Int {
-        if (bool) {
-            return 1
-        } else {
-            return 0
-        }
-    }
-
-    private fun intToBool(int: Int) : Boolean {
-        return int == 1
-    }
-
-    private fun letterToInt(letter: String) : Int {
-        when (letter) {
-            "A" -> return 1
-            "B" -> return 2
-            "C" -> return 3
-            "D" -> return 4
-        }
-        return 0
-    }
-
-    private fun intToLetter(int: Int) : String {
-        when (int) {
-            1 -> return "A"
-            2 -> return "B"
-            3 -> return "C"
-            4 -> return "D"
-        }
-        return "A"
     }
 
     private fun getIndex(spinner: Spinner, myString: String): Int {
