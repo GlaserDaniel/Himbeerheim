@@ -41,14 +41,14 @@ class MainActivityFragment() : Fragment() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.action_settings -> {
-                Toast.makeText(context, "Settings", Toast.LENGTH_SHORT).show()
+                Toast.makeText(activity, "Settings", Toast.LENGTH_SHORT).show()
                 mCallback.onSettingsSelected()
                 return true
             }
             R.id.action_powerOffRaspberryPi -> {
-                Toast.makeText(context, "Schalte Raspberry Pi aus", Toast.LENGTH_SHORT).show();
-                val result = sshConnection.sendSSHCommand("sudo shutdown -h 0");
-                Toast.makeText(context, "Result: " + result, Toast.LENGTH_SHORT).show();
+                Toast.makeText(activity, "Schalte Raspberry Pi aus", Toast.LENGTH_SHORT).show()
+                val result = sshConnection.sendSSHCommand("sudo shutdown -h 0")
+                Toast.makeText(activity, "Result: " + result, Toast.LENGTH_SHORT).show()
                 return true
             }
         //R.id.search -> consume { MenuItemCompat.expandActionView(item) }
@@ -64,12 +64,12 @@ class MainActivityFragment() : Fragment() {
 
         sshConnection = data.sshConnection
 
-        var commandsAdapter = CommandsAdapter(context, data.buttonCommands, sshConnection, mCallback)
+        val commandsAdapter = CommandsAdapter(activity, data.buttonCommands, sshConnection, mCallback)
 
         view.buttons_gridView.adapter = commandsAdapter
 
         view.fab.setOnClickListener {
-            var code = ArrayList<Any>()
+            val code = ArrayList<Any>()
             code.add(0)
             code.add(1)
             code.add(1)
@@ -82,7 +82,7 @@ class MainActivityFragment() : Fragment() {
             mCallback.onButtonCommandSelected(newButtonCommand)
 
             if (data.editNoticeCounter > 0) {
-                Toast.makeText(context, getString(R.string.editNotice), Toast.LENGTH_SHORT).show()
+                Toast.makeText(activity, getString(R.string.editNotice), Toast.LENGTH_SHORT).show()
                 data.editNoticeCounter--
             }
             data.save()
@@ -94,7 +94,7 @@ class MainActivityFragment() : Fragment() {
     }
 
     private fun makeButton(buttonCommand: ButtonCommand) : Button {
-        val button = Button(context)
+        val button = Button(activity)
         button.text = buttonCommand.title
         button.layoutParams = Toolbar.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
         button.setOnClickListener {

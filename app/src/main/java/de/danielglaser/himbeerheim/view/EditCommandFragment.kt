@@ -29,7 +29,7 @@ class EditCommandFragment() : Fragment() {
     }
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        var view = inflater!!.inflate(R.layout.fragment_edit_command, container, false)
+        val view = inflater!!.inflate(R.layout.fragment_edit_command, container, false)
         view.title_EditText.setText(buttonCommand.title)
         //view.command_EditText.setText(buttonCommand.command)
 
@@ -55,7 +55,7 @@ class EditCommandFragment() : Fragment() {
             buttonCommand.title = view.title_EditText.text.toString()
             //buttonCommand.command = view.command_EditText.text.toString()
 
-            var code = ArrayList<Any>()
+            val code = ArrayList<Any>()
             code.add(view.switch1.isChecked)
             code.add(view.switch2.isChecked)
             code.add(view.switch3.isChecked)
