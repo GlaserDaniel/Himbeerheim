@@ -1,7 +1,7 @@
 package de.danielglaser.himbeerheim.view
 
+import android.app.Fragment
 import android.content.Context
-import android.support.v4.app.Fragment
 import android.os.Bundle
 import android.support.v7.widget.Toolbar
 import android.view.*
@@ -42,6 +42,7 @@ class MainActivityFragment() : Fragment() {
         when (item.itemId) {
             R.id.action_settings -> {
                 Toast.makeText(context, "Settings", Toast.LENGTH_SHORT).show()
+                mCallback.onSettingsSelected()
                 return true
             }
             R.id.action_powerOffRaspberryPi -> {
@@ -107,11 +108,12 @@ class MainActivityFragment() : Fragment() {
         return button
     }
 
-    lateinit var mCallback: OnButtonCommandSelectedListener
+    lateinit var mCallback: MainActivityFragmentListener
 
     // Container Activity must implement this interface
-    interface OnButtonCommandSelectedListener {
+    interface MainActivityFragmentListener {
         fun onButtonCommandSelected(buttonCommand: ButtonCommand)
+        fun onSettingsSelected()
     }
 
     override fun onAttach(context: Context?) {
@@ -119,7 +121,7 @@ class MainActivityFragment() : Fragment() {
         // This makes sure that the container activity has implemented
         // the callback interface. If not, it throws an exception
         try {
-            mCallback = context as OnButtonCommandSelectedListener
+            mCallback = context as MainActivityFragmentListener
         } catch (e: ClassCastException) {
             throw ClassCastException(context.toString() + " must implement OnHeadlineSelectedListener")
         }

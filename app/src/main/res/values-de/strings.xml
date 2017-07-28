@@ -10,4 +10,7 @@
     <string name="powerOffRaspberryPi">Pi ausschalten</string>
     <string name="command_button_on">an</string>
     <string name="command_button_off">aus</string>
+    <string name="password">Passwort</string>
+    <string name="ip">IP-Addresse</string>
+    <string name="username">Benutzername</string>
 </resources>

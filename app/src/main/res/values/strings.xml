@@ -10,6 +10,12 @@
     <string name="powerOffRaspberryPi">Power off Pi</string>
     <string name="command_button_on">on</string>
     <string name="command_button_off">off</string>
+    <string name="password">Password</string>
+    <string name="ip">IP-adress</string>
+    <string name="username">Username</string>
+    <string name="ip_key" translatable="false">ip</string>
+    <string name="username_key" translatable="false">username</string>
+    <string name="password_key" translatable="false">password</string>
 
     <string-array name="letters_array">
         <item>A</item>

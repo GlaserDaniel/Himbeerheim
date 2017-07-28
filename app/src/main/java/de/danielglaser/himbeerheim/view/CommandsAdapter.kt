@@ -16,7 +16,7 @@ import kotlinx.android.synthetic.main.command_item.view.*
  */
 class CommandsAdapter : ArrayAdapter<ButtonCommand> {
 
-    constructor(context: Context, items: ArrayList<ButtonCommand>, sshConnection: SSHConnection, mCallback: MainActivityFragment.OnButtonCommandSelectedListener) : super(context, 0, items) {
+    constructor(context: Context, items: ArrayList<ButtonCommand>, sshConnection: SSHConnection, mCallback: MainActivityFragment.MainActivityFragmentListener) : super(context, 0, items) {
         this.items = items
         this.sshConnection = sshConnection
         this.mCallback = mCallback
@@ -26,7 +26,7 @@ class CommandsAdapter : ArrayAdapter<ButtonCommand> {
     private var items: ArrayList<ButtonCommand>? = ArrayList()
     private var vi: LayoutInflater? = null
     private var sshConnection: SSHConnection
-    private var mCallback: MainActivityFragment.OnButtonCommandSelectedListener
+    private var mCallback: MainActivityFragment.MainActivityFragmentListener
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
         var view = convertView

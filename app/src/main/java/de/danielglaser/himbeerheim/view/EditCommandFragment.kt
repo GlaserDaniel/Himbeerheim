@@ -1,8 +1,8 @@
 package de.danielglaser.himbeerheim.view
 
+import android.app.Fragment
 import android.content.Context
 import android.os.Bundle
-import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -84,10 +84,10 @@ class EditCommandFragment() : Fragment() {
         return index
     }
 
-    lateinit var mCallback: OnBackToMainSelectedListener
+    lateinit var mCallback: EditCommandListener
 
     // Container Activity must implement this interface
-    interface OnBackToMainSelectedListener {
+    interface EditCommandListener {
         fun onSaveSelectedListener()
         fun onCancelSelectedListener()
         fun onDeleteSelectedListener(buttonCommand: ButtonCommand)
@@ -98,7 +98,7 @@ class EditCommandFragment() : Fragment() {
         // This makes sure that the container activity has implemented
         // the callback interface. If not, it throws an exception
         try {
-            mCallback = context as OnBackToMainSelectedListener
+            mCallback = context as EditCommandListener
         } catch (e: ClassCastException) {
             throw ClassCastException(context.toString() + " must implement OnHeadlineSelectedListener")
         }
