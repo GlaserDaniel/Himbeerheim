@@ -4,7 +4,7 @@ apply plugin: 'kotlin-android'
 android {
     signingConfigs {
         debug {
-            storeFile file('C:/Users/Daniel/.android/debug.keystore')
+            storeFile file('debug.keystore')
             storePassword 'android'
         }
     }
