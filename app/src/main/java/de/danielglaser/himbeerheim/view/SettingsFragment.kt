@@ -10,6 +10,10 @@ import android.widget.Toast
 import de.danielglaser.himbeerheim.R
 import de.danielglaser.himbeerheim.model.Data
 import de.danielglaser.himbeerheim.model.Util
+import android.content.Intent
+import android.support.v4.content.ContextCompat.startActivity
+
+
 
 /**
  * Created by Daniel on 28.07.2017.
@@ -133,10 +137,10 @@ class SettingsFragment() : PreferenceFragment(), Preference.OnPreferenceChangeLi
             // Light Theme
             Util.setTheme(1)
         }
-        activity.recreate()
+        //activity.recreate()
 
-        //TODO Theme
+        activity.finish()
 
-        //m_data.theme = value
+        activity.startActivity(Intent(activity, activity.javaClass))
     }
 }

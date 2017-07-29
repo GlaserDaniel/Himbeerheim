@@ -31,16 +31,16 @@ open class BaseActivity: AppCompatActivity() {
     fun updateTheme() {
         if (Util.getTheme() <= THEME_LIGHT) {
             setTheme(R.style.AppTheme)
-            /*if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
                 window.statusBarColor = resources.getColor(R.color.colorPrimaryDark)
-            }*/
+            }
         } else if (Util.getTheme() == THEME_BLACK) {
             setTheme(R.style.DarkAppTheme)
-            /*if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
                 window.statusBarColor = resources.getColor(R.color.black)
-            }*/
+            }
         }
     }
 }
