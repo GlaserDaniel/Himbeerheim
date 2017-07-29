@@ -21,7 +21,7 @@
     <string name="general_Category">General</string>
     <string name="Theme_Category">Theme</string>
 
-    <string-array name="letters_array">
+    <string-array name="letters_array" translatable="false">
         <item>A</item>
         <item>B</item>
         <item>C</item>

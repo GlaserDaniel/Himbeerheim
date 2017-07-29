@@ -11,8 +11,6 @@ import de.danielglaser.himbeerheim.R
 import de.danielglaser.himbeerheim.model.Data
 import de.danielglaser.himbeerheim.model.Util
 import android.content.Intent
-import android.support.v4.content.ContextCompat.startActivity
-
 
 
 /**
@@ -67,7 +65,7 @@ class SettingsFragment() : PreferenceFragment(), Preference.OnPreferenceChangeLi
         } else if (preference is Preference && newValue is Boolean) {
             when (preference.key) {
                 getString(R.string.dark_theme_key) -> {
-                    updateThemePref(preference, newValue)
+                    updateThemePref(newValue)
                     return true
                 }
                 else -> return false
@@ -122,12 +120,7 @@ class SettingsFragment() : PreferenceFragment(), Preference.OnPreferenceChangeLi
         m_data.password = value
     }
 
-    fun initThemePref() {
-        findPreference(getString(R.string.dark_theme_key)).onPreferenceChangeListener = this
-        //prefs.edit().putBoolean(getString(R.string.dark_theme_key), false).commit()
-    }
-
-    fun updateThemePref(preference: Preference, value: Boolean) {
+    fun updateThemePref(value: Boolean) {
         prefs.edit().putBoolean(getString(R.string.dark_theme_key), value).commit()
 
         if (value) {
@@ -142,5 +135,10 @@ class SettingsFragment() : PreferenceFragment(), Preference.OnPreferenceChangeLi
         activity.finish()
 
         activity.startActivity(Intent(activity, activity.javaClass))
+    }
+
+    fun initThemePref() {
+        findPreference(getString(R.string.dark_theme_key)).onPreferenceChangeListener = this
+        //prefs.edit().putBoolean(getString(R.string.dark_theme_key), false).commit()
     }
 }

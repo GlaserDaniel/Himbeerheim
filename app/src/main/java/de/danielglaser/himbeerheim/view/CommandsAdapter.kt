@@ -29,11 +29,9 @@ class CommandsAdapter : ArrayAdapter<ButtonCommand> {
     private var mCallback: MainActivityFragment.MainActivityFragmentListener
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
-        var view = convertView
-
         var buttonCommand = items!!.get(position)
 
-        view = vi!!.inflate(R.layout.command_item, null)
+        var view = vi!!.inflate(R.layout.command_item, null)
 
         view.commandTitle_textView.text = buttonCommand.title
 
