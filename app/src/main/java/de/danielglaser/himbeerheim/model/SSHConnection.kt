@@ -13,7 +13,7 @@ import java.util.Properties
  * Created by Daniel on 16.07.2017.
  */
 
-class SSHConnection(internal var hostname: String, internal var port: Int, internal var username: String, internal var password: String) {
+class SSHConnection(internal var host: String, internal var port: Int, internal var username: String, internal var password: String) {
 
     var session: Session? = null
 
@@ -51,7 +51,7 @@ class SSHConnection(internal var hostname: String, internal var port: Int, inter
         val jsch = JSch()
 
         try {
-            session = jsch.getSession(username, hostname, port)
+            session = jsch.getSession(username, host, port)
         } catch (e: JSchException) {
             e.printStackTrace()
             return

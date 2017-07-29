@@ -2,7 +2,7 @@ package de.danielglaser.himbeerheim.model
 
 import android.content.ContentValues
 import android.util.Log
-import de.danielglaser.himbeerheim.view.MainActivity
+import de.danielglaser.himbeerheim.view.BaseActivity
 import java.io.*
 
 /**
@@ -12,7 +12,7 @@ class Persistence {
     // this is the general method to serialize an object
     fun saveObject(`object`: Any, filename: String) {
         try {
-            val file = File(MainActivity.contextOfApplication.filesDir, filename)
+            val file = File(BaseActivity.appContext.filesDir, filename)
             val fos = FileOutputStream(file)
             val os = ObjectOutputStream(fos)
             os.writeObject(`object`)
@@ -27,7 +27,7 @@ class Persistence {
     fun readObject(filename: String): Any? {
         var result: Any? = null
         try {
-            val file = File(MainActivity.contextOfApplication.filesDir, filename)
+            val file = File(BaseActivity.appContext.filesDir, filename)
             if (file.exists()) {
                 val fis = FileInputStream(file)
                 val ois = ObjectInputStream(fis)

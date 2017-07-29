@@ -16,6 +16,10 @@
     <string name="ip_key" translatable="false">ip</string>
     <string name="username_key" translatable="false">username</string>
     <string name="password_key" translatable="false">password</string>
+    <string name="theme_text">Use dark theme</string>
+    <string name="dark_theme_key" translatable="false" >dark_theme</string>
+    <string name="general_Category">General</string>
+    <string name="Theme_Category">Theme</string>
 
     <string-array name="letters_array">
         <item>A</item>
@@ -23,4 +27,5 @@
         <item>C</item>
         <item>D</item>
     </string-array>
+    <string name="current_theme_key" translatable="false">current_theme</string>
 </resources>

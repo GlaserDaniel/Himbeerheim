@@ -2,6 +2,7 @@ package de.danielglaser.himbeerheim.model
 
 import de.danielglaser.himbeerheim.view.MainActivity
 import de.danielglaser.himbeerheim.R
+import de.danielglaser.himbeerheim.view.BaseActivity
 import java.io.Serializable
 
 import java.util.ArrayList
@@ -14,11 +15,11 @@ import java.util.ArrayList
 class Data : Serializable {
 
     companion object {
-        private const val serialVersionUID: Long = 2
+        private const val serialVersionUID: Long = 3
     }
 
     var buttonCommands: ArrayList<ButtonCommand> = ArrayList()
-    var hostname = "192.168.178.43"
+    var host = "192.168.178.43"
     var port = 22
     var username = "pi"
     var password = "Roter!Weg!3"
@@ -35,18 +36,18 @@ class Data : Serializable {
     }
 
     private fun initSSHConnection() {
-        sshConnection = SSHConnection(hostname = hostname, port = port, username = username, password = password)
+        sshConnection = SSHConnection(host = host, port = port, username = username, password = password)
     }
 
     fun save() {
-        Persistence().saveObject(`object` = this, filename = MainActivity.contextOfApplication.getString(R.string.DATA_FILENAME))
+        Persistence().saveObject(`object` = this, filename = BaseActivity.appContext.getString(R.string.DATA_FILENAME))
     }
 
     fun load() {
-        var loadObject = Persistence().readObject(filename = MainActivity.contextOfApplication.getString(R.string.DATA_FILENAME))
+        var loadObject = Persistence().readObject(filename = BaseActivity.appContext.getString(R.string.DATA_FILENAME))
         if (loadObject is Data) {
             this.buttonCommands = loadObject.buttonCommands
-            this.hostname = loadObject.hostname
+            this.host = loadObject.host
             this.port = loadObject.port
             this.username = loadObject.username
             this.password = loadObject.password

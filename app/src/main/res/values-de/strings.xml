@@ -13,4 +13,7 @@
     <string name="password">Passwort</string>
     <string name="ip">IP-Addresse</string>
     <string name="username">Benutzername</string>
+    <string name="theme_text">Dunkles Design verwenden</string>
+    <string name="general_Category">Allgemein</string>
+    <string name="Theme_Category">Design</string>
 </resources>

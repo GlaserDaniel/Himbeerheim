@@ -2,7 +2,6 @@ package de.danielglaser.himbeerheim.view
 
 import android.content.Context
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import de.danielglaser.himbeerheim.R
 import de.danielglaser.himbeerheim.model.ButtonCommand
@@ -11,17 +10,12 @@ import de.danielglaser.himbeerheim.model.Data
 import kotlinx.android.synthetic.main.activity_main.*
 
 
-class MainActivity : AppCompatActivity(), MainActivityFragment.MainActivityFragmentListener, EditCommandFragment.EditCommandListener {
-
-    companion object {
-        lateinit var contextOfApplication: Context
-    }
+class MainActivity : BaseActivity(), MainActivityFragment.MainActivityFragmentListener, EditCommandFragment.EditCommandListener {
 
     lateinit var data: Data
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        contextOfApplication = applicationContext
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
 
@@ -43,7 +37,7 @@ class MainActivity : AppCompatActivity(), MainActivityFragment.MainActivityFragm
             code.add(1)
             data.buttonCommands.add(ButtonCommand("Licht", code, 4))
             code[4] = 0
-            data.buttonCommands.add(ButtonCommand("TV", code, 4))
+            data.buttonCommands.add(ButtonCommand("TV", code, 3))
         }
 
         loadMainActivityFragment()
@@ -67,7 +61,7 @@ class MainActivity : AppCompatActivity(), MainActivityFragment.MainActivityFragm
     private fun loadSettingsFragment() {
         val manager = fragmentManager
         manager.popBackStack()
-        val newFragment = SettingsFragment()
+        val newFragment = SettingsFragment(data)
 
         val trans = manager.beginTransaction()
         trans.addToBackStack(null)

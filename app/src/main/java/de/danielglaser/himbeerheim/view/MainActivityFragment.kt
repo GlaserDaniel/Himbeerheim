@@ -21,10 +21,10 @@ class MainActivityFragment() : Fragment() {
 
     constructor(data: Data) : this() {
         retainInstance = true
-        this.data = data
+        this.m_data = data
     }
 
-    lateinit var data: Data
+    lateinit var m_data: Data
 
     lateinit var sshConnection: SSHConnection
 
@@ -41,7 +41,6 @@ class MainActivityFragment() : Fragment() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.action_settings -> {
-                Toast.makeText(activity, "Settings", Toast.LENGTH_SHORT).show()
                 mCallback.onSettingsSelected()
                 return true
             }
@@ -62,9 +61,9 @@ class MainActivityFragment() : Fragment() {
 
         val view = inflater!!.inflate(R.layout.fragment_main, container, false)
 
-        sshConnection = data.sshConnection
+        sshConnection = m_data.sshConnection
 
-        val commandsAdapter = CommandsAdapter(activity, data.buttonCommands, sshConnection, mCallback)
+        val commandsAdapter = CommandsAdapter(activity, m_data.buttonCommands, sshConnection, mCallback)
 
         view.buttons_gridView.adapter = commandsAdapter
 
@@ -77,15 +76,15 @@ class MainActivityFragment() : Fragment() {
             code.add(1)
             val newButtonCommand = ButtonCommand("Licht", code, 4)
 
-            data.buttonCommands.add(newButtonCommand)
+            m_data.buttonCommands.add(newButtonCommand)
 
             mCallback.onButtonCommandSelected(newButtonCommand)
 
-            if (data.editNoticeCounter > 0) {
+            if (m_data.editNoticeCounter > 0) {
                 Toast.makeText(activity, getString(R.string.editNotice), Toast.LENGTH_SHORT).show()
-                data.editNoticeCounter--
+                m_data.editNoticeCounter--
             }
-            data.save()
+            m_data.save()
 
             commandsAdapter.notifyDataSetChanged()
         }
