@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <PreferenceCategory
-        android:title="@string/general_Category" />
+    <PreferenceCategory android:title="@string/general_Category" />
 
     <EditTextPreference
         android:key="@string/ip_key"
@@ -36,8 +35,7 @@
         android:singleLine="true"
         android:summary="sudo ./raspberry-remote/send"
         android:title="@string/command_text" />
-    <PreferenceCategory
-        android:title="@string/Theme_Category"/>
+    <PreferenceCategory android:title="@string/Theme_Category" />
 
     <SwitchPreference
         android:defaultValue="false"

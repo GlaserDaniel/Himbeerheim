@@ -5,9 +5,10 @@
     android:id="@+id/fragment_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="?attr/backgroundColor"
     tools:context="de.danielglaser.himbeerheim.view.MainActivityFragment"
     tools:layout_editor_absoluteX="0dp"
-    tools:layout_editor_absoluteY="137dp" >
+    tools:layout_editor_absoluteY="137dp">
 
     <GridView
         android:id="@+id/buttons_gridView"
@@ -17,11 +18,14 @@
         android:layout_marginLeft="0dp"
         android:layout_marginRight="0dp"
         android:layout_marginTop="0dp"
-        android:numColumns="2"
+        android:numColumns="auto_fit"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0"
+        tools:listitem="@layout/command_item" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"
@@ -29,12 +33,12 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/fab_margin"
+        android:layout_marginBottom="239dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="105dp"
         app:backgroundTint="@color/darkBlue"
-        app:srcCompat="@android:drawable/ic_menu_add"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginBottom="8dp"
-        android:layout_marginRight="8dp"
         app:layout_constraintRight_toRightOf="parent"
-        android:layout_marginEnd="8dp" />
+        app:srcCompat="@android:drawable/ic_menu_add" />
 
 </android.support.constraint.ConstraintLayout>
