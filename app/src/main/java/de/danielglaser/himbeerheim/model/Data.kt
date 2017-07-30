@@ -20,12 +20,12 @@ class Data : Serializable {
     var buttonCommands: ArrayList<ButtonCommand> = ArrayList()
     var host = ""
     var port = 22
-    var username = ""
+    var username = "pi"
     var password = ""
 
     private var command = "sudo ./raspberry-remote/send"
 
-    var editNoticeCounter = 3
+    var editNoticeCounter = 0
 
     @Transient
     lateinit var sshConnection: SSHConnection

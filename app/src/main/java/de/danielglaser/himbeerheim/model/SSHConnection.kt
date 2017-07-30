@@ -1,6 +1,7 @@
 package de.danielglaser.himbeerheim.model
 
 import android.os.AsyncTask
+import android.util.Log
 import com.jcraft.jsch.ChannelExec
 import com.jcraft.jsch.JSch
 import com.jcraft.jsch.JSchException
@@ -14,6 +15,8 @@ import java.util.Properties
  */
 
 class SSHConnection(internal var host: String, internal var port: Int, internal var username: String, internal var password: String) {
+
+    private var TAG = "SSHConnection"
 
     var session: Session? = null
 
@@ -106,6 +109,7 @@ class SSHConnection(internal var host: String, internal var port: Int, internal 
 
         channelssh.disconnect()
 
+        Log.d(TAG, "Result from SSH: " + baos.toString())
         return baos.toString()
     }
 }
