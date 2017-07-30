@@ -31,7 +31,7 @@ class EditCommandFragment() : Fragment() {
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater!!.inflate(R.layout.fragment_edit_command, container, false)
         view.title_EditText.setText(buttonCommand.title)
-        //view.command_EditText.setText(buttonCommand.command)
+        //view.command_EditText.setText(buttonCommand.commandOn)
 
         val code = buttonCommand.getCodeBool()
 
@@ -53,7 +53,7 @@ class EditCommandFragment() : Fragment() {
 
         view.save_Button.setOnClickListener {
             buttonCommand.title = view.title_EditText.text.toString()
-            //buttonCommand.command = view.command_EditText.text.toString()
+            //buttonCommand.commandOn = view.command_EditText.text.toString()
 
             val code = ArrayList<Any>()
             code.add(view.switch1.isChecked)

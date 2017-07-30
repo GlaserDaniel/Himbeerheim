@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import de.danielglaser.himbeerheim.model.ButtonCommand
 import android.view.LayoutInflater
+import android.widget.Toast
 import de.danielglaser.himbeerheim.R
 import de.danielglaser.himbeerheim.model.SSHConnection
 
@@ -36,27 +37,37 @@ class CommandsAdapter : ArrayAdapter<ButtonCommand> {
         view.commandTitle_textView.text = buttonCommand.title
 
         view.on_button.setOnClickListener {
-            sshConnection.sendSSHCommand(command = "sudo ./send " + buttonCommand.command + " 1")
+            sshConnection.sendSSHCommand(command = buttonCommand.commandOn)
         }
 
         view.off_button.setOnClickListener {
-            sshConnection.sendSSHCommand(command = "sudo ./send " + buttonCommand.command + " 0")
+            sshConnection.sendSSHCommand(command = buttonCommand.commandOff)
+        }
+
+        view.editButton.setOnClickListener {
+            mCallback.onButtonCommandSelected(buttonCommand)
+        }
+
+        view.setOnLongClickListener {
+            Toast.makeText(context, "Drag and Drop comming soon! :-)", Toast.LENGTH_SHORT).show()
+
+            true
         }
 
         view.on_button.setOnLongClickListener {
-            mCallback.onButtonCommandSelected(buttonCommand)
+            Toast.makeText(context, "Drag and Drop comming soon! :-)", Toast.LENGTH_SHORT).show()
 
             true
         }
 
         view.off_button.setOnLongClickListener {
-            mCallback.onButtonCommandSelected(buttonCommand)
+            Toast.makeText(context, "Drag and Drop comming soon! :-)", Toast.LENGTH_SHORT).show()
 
             true
         }
 
-        view.setOnLongClickListener {
-            mCallback.onButtonCommandSelected(buttonCommand)
+        view.editButton.setOnLongClickListener {
+            Toast.makeText(context, "Drag and Drop comming soon! :-)", Toast.LENGTH_SHORT).show()
 
             true
         }

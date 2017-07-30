@@ -4,7 +4,7 @@
     <string name="action_settings">Einstellungen</string>
     <string name="save">speichern</string>
     <string name="command_title">Titel</string>
-    <string name="command">Befehl</string>
+    <string name="m_command">Befehl</string>
     <string name="command_delete" >löschen</string>
     <string name="editNotice">Zum Bearbeiten lange auf einen Button drücken</string>
     <string name="powerOffRaspberryPi">Pi ausschalten</string>
@@ -16,4 +16,6 @@
     <string name="theme_text">Dunkles Design verwenden</string>
     <string name="general_Category">Allgemein</string>
     <string name="Theme_Category">Design</string>
+    <string name="port">Port</string>
+    <string name="command_text">Der Pfad zur send Datei</string>
 </resources>

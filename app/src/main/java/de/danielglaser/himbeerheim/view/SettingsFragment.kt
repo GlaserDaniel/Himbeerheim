@@ -35,8 +35,10 @@ class SettingsFragment() : PreferenceFragment(), Preference.OnPreferenceChangeLi
         prefs = PreferenceManager.getDefaultSharedPreferences(activity)
 
         initIpPref()
+        initPortPref()
         initUsernamePref()
         initPasswordPref()
+        initCommandPref()
         initThemePref()
     }
 
@@ -58,6 +60,14 @@ class SettingsFragment() : PreferenceFragment(), Preference.OnPreferenceChangeLi
                 }
                 getString(R.string.password_key) -> {
                     updatePasswordPref(preference, newValue)
+                    return true
+                }
+                getString(R.string.port_key) -> {
+                    updatePortPref(preference, newValue.toInt())
+                    return true
+                }
+                getString(R.string.command_key) -> {
+                    updateCommandPref(preference, newValue)
                     return true
                 }
                 else -> return false
@@ -98,6 +108,17 @@ class SettingsFragment() : PreferenceFragment(), Preference.OnPreferenceChangeLi
         m_data.host = value
     }
 
+    fun initPortPref() {
+        val preference = findPreference(getString(R.string.port_key))
+        preference.onPreferenceChangeListener = this
+        preference.summary = m_data.port.toString()
+    }
+
+    fun updatePortPref(preference: Preference, value: Int) {
+        preference.summary = value.toString()
+        m_data.port = value
+    }
+
     fun initUsernamePref() {
         val preference = findPreference(getString(R.string.username_key))
         preference.onPreferenceChangeListener = this
@@ -120,8 +141,19 @@ class SettingsFragment() : PreferenceFragment(), Preference.OnPreferenceChangeLi
         m_data.password = value
     }
 
+    fun initCommandPref() {
+        val preference = findPreference(getString(R.string.command_key))
+        preference.onPreferenceChangeListener = this
+        preference.summary = m_data.getCommand()
+    }
+
+    fun updateCommandPref(preference: Preference, value: String) {
+        preference.summary = value
+        m_data.updateCommand(value)
+    }
+
     fun updateThemePref(value: Boolean) {
-        prefs.edit().putBoolean(getString(R.string.dark_theme_key), value).commit()
+        prefs.edit().putBoolean(getString(R.string.dark_theme_key), value).apply()
 
         if (value) {
             // Dark Theme

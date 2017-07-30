@@ -38,7 +38,7 @@
         android:id="@+id/command_TextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/command"
+        android:text="@string/m_command"
         android:textSize="18sp"
         app:layout_constraintLeft_toLeftOf="parent"
         android:layout_marginLeft="8dp"

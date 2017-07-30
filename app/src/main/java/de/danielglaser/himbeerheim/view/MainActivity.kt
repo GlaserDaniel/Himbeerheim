@@ -1,6 +1,5 @@
 package de.danielglaser.himbeerheim.view
 
-import android.content.Context
 import android.os.Bundle
 import android.view.Menu
 import de.danielglaser.himbeerheim.R
@@ -35,9 +34,9 @@ class MainActivity : BaseActivity(), MainActivityFragment.MainActivityFragmentLi
             code.add(1)
             code.add(1)
             code.add(1)
-            data.buttonCommands.add(ButtonCommand("Licht", code, 4))
+            data.buttonCommands.add(ButtonCommand("Licht", code, 4, data.getCommand()))
             code[4] = 0
-            data.buttonCommands.add(ButtonCommand("TV", code, 3))
+            data.buttonCommands.add(ButtonCommand("TV", code, 3, data.getCommand()))
         }
 
         loadMainActivityFragment()

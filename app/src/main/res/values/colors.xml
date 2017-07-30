@@ -8,4 +8,5 @@
     <color name="black">#FF000000</color>
     <color name="green">#FF669900</color>
     <color name="red">#FFCC0000</color>
+    <color name="gray">#FFaaaaaa</color>
 </resources>

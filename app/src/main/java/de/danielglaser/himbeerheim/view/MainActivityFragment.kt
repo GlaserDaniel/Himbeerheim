@@ -74,7 +74,7 @@ class MainActivityFragment() : Fragment() {
             code.add(1)
             code.add(1)
             code.add(1)
-            val newButtonCommand = ButtonCommand("Licht", code, 4)
+            val newButtonCommand = ButtonCommand("Licht", code, 4, m_data.getCommand())
 
             m_data.buttonCommands.add(newButtonCommand)
 
@@ -97,7 +97,7 @@ class MainActivityFragment() : Fragment() {
         button.text = buttonCommand.title
         button.layoutParams = Toolbar.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
         button.setOnClickListener {
-            sshConnection.sendSSHCommand(command = buttonCommand.command)
+            sshConnection.sendSSHCommand(command = buttonCommand.commandOn)
         }
         button.setOnLongClickListener{
             mCallback.onButtonCommandSelected(buttonCommand)

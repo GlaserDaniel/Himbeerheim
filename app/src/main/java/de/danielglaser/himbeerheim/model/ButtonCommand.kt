@@ -17,19 +17,39 @@ class ButtonCommand : Serializable {
 
     private var m_letter: Int = 1
 
-    var command: String = ""
+    private var m_command: String = "sudo ./raspberry-remote/send"
+
+    var commandOn: String = ""
         get() {
             var commandString = ""
+            commandString += m_command + " "
             for (c in m_code)
                 commandString += c.toString()
             commandString += " " + m_letter.toString()
+            commandString += " 1"
         return commandString
     }
 
-    constructor(title: String, code: ArrayList<Any>, letter: Int) {
+    var commandOff: String = ""
+        get() {
+            var commandString = ""
+            commandString += m_command + " "
+            for (c in m_code)
+                commandString += c.toString()
+            commandString += " " + m_letter.toString()
+            commandString += " 0"
+            return commandString
+        }
+
+    constructor(title: String, code: ArrayList<Any>, letter: Int, command: String) {
         this.title = title
         setCode(code)
-        this.m_letter = letter
+        m_letter = letter
+        m_command = command
+    }
+
+    fun setCommand(newCommand: String) {
+        m_command = newCommand
     }
 
     fun getCode() : ArrayList<Int> {

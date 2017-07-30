@@ -1,6 +1,5 @@
 package de.danielglaser.himbeerheim.model
 
-import de.danielglaser.himbeerheim.view.MainActivity
 import de.danielglaser.himbeerheim.R
 import de.danielglaser.himbeerheim.view.BaseActivity
 import java.io.Serializable
@@ -19,10 +18,12 @@ class Data : Serializable {
     }
 
     var buttonCommands: ArrayList<ButtonCommand> = ArrayList()
-    var host = "192.168.178.43"
+    var host = ""
     var port = 22
-    var username = "pi"
-    var password = "Roter!Weg!3"
+    var username = ""
+    var password = ""
+
+    private var command = "sudo ./raspberry-remote/send"
 
     var editNoticeCounter = 3
 
@@ -33,6 +34,17 @@ class Data : Serializable {
         load()
         initSSHConnection()
         sshConnection.connect()
+    }
+
+    fun updateCommand(newCommand: String) {
+        command = newCommand
+        for (buttonCommand in buttonCommands) {
+            buttonCommand.setCommand(command)
+        }
+    }
+
+    fun getCommand() : String {
+        return command
     }
 
     private fun initSSHConnection() {

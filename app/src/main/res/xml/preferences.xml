@@ -5,11 +5,17 @@
         android:title="@string/general_Category" />
 
     <EditTextPreference
-        android:defaultValue="192.168.178.43"
         android:key="@string/ip_key"
         android:selectAllOnFocus="true"
         android:singleLine="true"
         android:title="@string/ip" />
+    <EditTextPreference
+        android:defaultValue="22"
+        android:inputType="number"
+        android:key="@string/port_key"
+        android:selectAllOnFocus="true"
+        android:singleLine="true"
+        android:title="@string/port" />
     <EditTextPreference
         android:defaultValue="pi"
         android:key="@string/username_key"
@@ -17,11 +23,16 @@
         android:singleLine="true"
         android:title="@string/username" />
     <EditTextPreference
-        android:defaultValue="Roter!Weg!3"
         android:key="@string/password_key"
         android:selectAllOnFocus="true"
         android:singleLine="true"
         android:title="@string/password" />
+    <EditTextPreference
+        android:defaultValue="sudo ./raspberry-remote/send"
+        android:key="@string/command_key"
+        android:selectAllOnFocus="true"
+        android:singleLine="true"
+        android:title="@string/command_text" />
     <PreferenceCategory
         android:title="@string/Theme_Category"/>
 

@@ -96,7 +96,7 @@ class SSHConnection(internal var host: String, internal var port: Int, internal 
         val baos = ByteArrayOutputStream()
         channelssh.outputStream = baos
 
-        // Execute command
+        // Execute commandOn
         channelssh.setCommand(command)
         try {
             channelssh.connect()
