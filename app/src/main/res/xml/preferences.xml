@@ -15,12 +15,14 @@
         android:key="@string/port_key"
         android:selectAllOnFocus="true"
         android:singleLine="true"
+        android:summary="22"
         android:title="@string/port" />
     <EditTextPreference
         android:defaultValue="pi"
         android:key="@string/username_key"
         android:selectAllOnFocus="true"
         android:singleLine="true"
+        android:summary="pi"
         android:title="@string/username" />
     <EditTextPreference
         android:key="@string/password_key"
@@ -32,6 +34,7 @@
         android:key="@string/command_key"
         android:selectAllOnFocus="true"
         android:singleLine="true"
+        android:summary="sudo ./raspberry-remote/send"
         android:title="@string/command_text" />
     <PreferenceCategory
         android:title="@string/Theme_Category"/>

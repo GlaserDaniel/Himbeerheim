@@ -29,7 +29,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/fab_margin"
-        app:backgroundTint="@color/colorPrimaryDark"
+        app:backgroundTint="@color/darkBlue"
         app:srcCompat="@android:drawable/ic_menu_add"
         app:layout_constraintBottom_toBottomOf="parent"
         android:layout_marginBottom="8dp"

@@ -33,7 +33,7 @@ open class BaseActivity: AppCompatActivity() {
             setTheme(R.style.AppTheme)
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
-                window.statusBarColor = resources.getColor(R.color.colorPrimaryDark)
+                window.statusBarColor = resources.getColor(R.color.darkBlue)
             }
         } else if (Util.getTheme() == THEME_BLACK) {
             setTheme(R.style.DarkAppTheme)
