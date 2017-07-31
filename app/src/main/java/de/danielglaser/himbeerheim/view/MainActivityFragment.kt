@@ -2,6 +2,7 @@ package de.danielglaser.himbeerheim.view
 
 import android.app.Fragment
 import android.content.Context
+import android.content.res.Configuration
 import android.os.Bundle
 import android.support.v7.widget.Toolbar
 import android.view.*
@@ -31,6 +32,44 @@ class MainActivityFragment() : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true)
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        handleGridViewSize(resources.configuration)
+    }
+
+    fun handleGridViewSize(conf: Configuration) {
+        if (conf.isLayoutSizeAtLeast(Configuration.SCREENLAYOUT_SIZE_XLARGE)) {
+            //großes Tabler
+            if (conf.orientation == Configuration.ORIENTATION_PORTRAIT) {
+                view.buttons_gridView.numColumns = 3
+            } else if (conf.orientation == Configuration.ORIENTATION_LANDSCAPE){
+                view.buttons_gridView.numColumns = 8
+            }
+        } else if (conf.isLayoutSizeAtLeast(Configuration.SCREENLAYOUT_SIZE_LARGE)) {
+            //kleines Tablet
+            if (conf.orientation == Configuration.ORIENTATION_PORTRAIT) {
+                view.buttons_gridView.numColumns = 2
+            } else if (conf.orientation == Configuration.ORIENTATION_LANDSCAPE){
+                view.buttons_gridView.numColumns = 4
+            }
+        } else if (conf.isLayoutSizeAtLeast(Configuration.SCREENLAYOUT_SIZE_NORMAL)) {
+            //normales Smartphone
+            if (conf.orientation == Configuration.ORIENTATION_PORTRAIT) {
+                view.buttons_gridView.numColumns = 2
+            } else if (conf.orientation == Configuration.ORIENTATION_LANDSCAPE){
+                view.buttons_gridView.numColumns = 4
+            }
+        } else if (conf.isLayoutSizeAtLeast(Configuration.SCREENLAYOUT_SIZE_SMALL)) {
+            //kleines Smartphone
+            if (conf.orientation == Configuration.ORIENTATION_PORTRAIT) {
+                view.buttons_gridView.numColumns = 1
+            } else if (conf.orientation == Configuration.ORIENTATION_LANDSCAPE){
+                view.buttons_gridView.numColumns = 2
+            }
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater) {
