@@ -6,30 +6,57 @@
         <item name="colorPrimary">@color/blue</item>
         <item name="colorPrimaryDark">@color/darkBlue</item>
         <item name="colorAccent">@color/darkBlue</item>
-        <item name="android:textColor">@color/black</item>
+
         <item name="backgroundColor">@color/white</item>
         <item name="commandBackground">@color/lightGray</item>
+
+        <item name="android:textColor">@color/black</item>
+
         <item name="colorControlActivated">@color/darkBlue</item>
         <item name="colorControlNormal">@color/darkBlue</item>
     </style>
 
-    <style name="DarkAppTheme" parent="AppTheme">
+    <style name="DarkAppTheme" parent="Theme.AppCompat.NoActionBar">
         <item name="colorPrimary">@color/black</item>
         <item name="colorPrimaryDark">@color/black</item>
         <item name="colorAccent">@color/darkBlue</item>
-        <item name="colorControlActivated">@color/darkBlue</item>
-        <item name="colorControlNormal">@color/darkBlue</item>
-        <item name="android:textColor">@color/white</item>
+
         <item name="backgroundColor">@color/black</item>
         <item name="commandBackground">@color/black</item>
+        <item name="android:itemBackground">@color/black</item>
+
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textColorHint">@color/gray</item>
         <item name="android:textColorSecondary">@color/gray</item>
         <item name="android:editTextColor">@color/white</item>
-        <item name="android:listViewStyle">@style/listViewPrefs</item>
+
+        <item name="colorControlActivated">@color/darkBlue</item>
+        <item name="colorControlNormal">@color/darkBlue</item>
+
+        <!--<item name="android:listViewStyle">@style/listViewPrefs</item>-->
+
+        <!--<item name="editTextBackground">@color/black</item>-->
+
+        <!--<item name="android:preferenceStyle">@style/prefreneceStyle</item>-->
+        <item name="android:colorBackground">?attr/backgroundColor</item>
     </style>
 
     <style name="listViewPrefs" parent="@android:style/Widget.ListView">
         <item name="android:background">@color/black</item>
         <item name="android:cacheColorHint">@color/black</item>
+        <item name="colorControlHighlight">@color/lightBlue</item>
+    </style>
+
+    <!--<style name="prefreneceStyle" parent="@style/PreferenceThemeOverlay.v14.Material">-->
+        <!--<item name="android:background">@color/black</item>-->
+        <!--<item name="android:windowBackground">@color/lightBlue</item>-->
+        <!--<item name="colorControlHighlight">@color/lightBlue</item>-->
+        <!--<item name="android:editTextBackground">@color/red</item>-->
+        <!--<item name="android:dialogPreferenceStyle">@style/dialogPreferencesStyle</item>-->
+    <!--</style>-->
+
+    <style name="dialogPreferencesStyle">
+        <item name="android:background">@color/lightBlue</item>
     </style>
 
     <style name="AppTheme.NoActionBar">
