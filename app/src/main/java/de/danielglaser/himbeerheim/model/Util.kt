@@ -9,6 +9,9 @@ import de.danielglaser.himbeerheim.view.BaseActivity
  */
 class Util {
     companion object {
+        var hostNotSet = "hostNotSet"
+        var usernameNotSet = "usernameNotSet"
+
         fun setTheme(theme: Int) {
             val prefs = PreferenceManager.getDefaultSharedPreferences(BaseActivity.appContext.applicationContext)
             prefs.edit().putInt(BaseActivity.appContext.applicationContext.getString(R.string.current_theme_key), theme).apply()

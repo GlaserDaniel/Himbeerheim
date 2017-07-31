@@ -32,4 +32,6 @@
     <string name="port">Port</string>
     <string name="command_text">The path to the send file</string>
     <string name="command_key" translatable="false">command</string>
+    <string name="error_hostNotSet">Host not set</string>
+    <string name="error_usernameNotSet">Username not set</string>
 </resources>

@@ -18,4 +18,6 @@
     <string name="Theme_Category">Design</string>
     <string name="port">Port</string>
     <string name="command_text">Der Pfad zur send Datei</string>
+    <string name="error_hostNotSet">Host nicht gesetzt</string>
+    <string name="error_usernameNotSet">Benutzername nicht gesetzt</string>
 </resources>

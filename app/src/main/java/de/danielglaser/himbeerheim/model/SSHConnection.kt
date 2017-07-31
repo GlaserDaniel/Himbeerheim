@@ -20,44 +20,51 @@ class SSHConnection(internal var host: String, internal var port: Int, internal 
 
     var session: Session? = null
 
-    fun connect() {
-        val task = object : AsyncTask<Void, Void, Void>() {
-            override fun doInBackground(vararg p0: Void?): Void? {
+    fun connect(): String {
+        val task = object : AsyncTask<Void, Void, String>() {
+            override fun doInBackground(vararg p0: Void?): String {
                 try {
-                    internalConnect()
+                    return internalConnect()
                 } catch (e: Exception) {
-                    e.printStackTrace()
+                    Log.e(TAG, "internalConnect", e)
                 }
-                return null
+                return ""
             }
         }
         task.execute()
+        return task.get()
     }
 
-    fun sendSSHCommand(command: String): String? {
+    fun sendSSHCommand(command: String): String {
         val task = object : AsyncTask<String, Void, String>() {
-            override fun doInBackground(vararg params: String): String? {
+            override fun doInBackground(vararg params: String): String {
                 try {
-                    internalSendSSHCommand(command)
+                    return internalSendSSHCommand(command)
                 } catch (e: Exception) {
-                    e.printStackTrace()
+                    Log.e(TAG, "internalSendSSHCommand", e)
                 }
 
-                return null
+                return ""
             }
         }
         task.execute(command)
         return task.get()
     }
 
-    private fun internalConnect() {
+    private fun internalConnect(): String {
         val jsch = JSch()
+
+        if (username.isNullOrBlank()) {
+            return Util.usernameNotSet
+        } else if (host.isNullOrBlank()) {
+            return Util.hostNotSet
+        }
 
         try {
             session = jsch.getSession(username, host, port)
         } catch (e: JSchException) {
-            e.printStackTrace()
-            return
+            Log.e(TAG, "GetSession", e)
+            return ""
         }
 
         session!!.setPassword(password)
@@ -70,21 +77,27 @@ class SSHConnection(internal var host: String, internal var port: Int, internal 
         try {
             session!!.connect()
         } catch (e: JSchException) {
-            e.printStackTrace()
-            return
+            Log.e(TAG, "Session Connect", e)
+            return ""
         }
+
+        return ""
     }
 
-    private fun internalSendSSHCommand(command: String): String? {
+    private fun internalSendSSHCommand(command: String): String {
         var counter = 5
 
         while ((session == null || !session!!.isConnected) && counter > 0) {
-            internalConnect()
+            val result = internalConnect()
+            if (result.isNotEmpty()) {
+                return result
+            }
             counter--
         }
 
         if (session == null || !session!!.isConnected) {
-            return null
+            Log.e(TAG, "session null or not connected")
+            return ""
         }
 
         // SSH Channel
@@ -92,8 +105,8 @@ class SSHConnection(internal var host: String, internal var port: Int, internal 
         try {
             channelssh = session!!.openChannel("exec") as ChannelExec
         } catch (e: JSchException) {
-            e.printStackTrace()
-            return null
+            Log.e(TAG, "openChannel", e)
+            return ""
         }
 
         val baos = ByteArrayOutputStream()
@@ -104,7 +117,7 @@ class SSHConnection(internal var host: String, internal var port: Int, internal 
         try {
             channelssh.connect()
         } catch (e: JSchException) {
-            e.printStackTrace()
+            Log.e(TAG, "Channelssh Connect", e)
         }
 
         channelssh.disconnect()

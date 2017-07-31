@@ -131,7 +131,7 @@ class MainActivityFragment() : Fragment() {
         return view
     }
 
-    private fun makeButton(buttonCommand: ButtonCommand) : Button {
+    /*private fun makeButton(buttonCommand: ButtonCommand) : Button {
         val button = Button(activity)
         button.text = buttonCommand.title
         button.layoutParams = Toolbar.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
@@ -144,7 +144,7 @@ class MainActivityFragment() : Fragment() {
             true
         }
         return button
-    }
+    }*/
 
     lateinit var mCallback: MainActivityFragmentListener
 

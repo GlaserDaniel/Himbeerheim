@@ -9,6 +9,7 @@ import android.view.LayoutInflater
 import android.widget.Toast
 import de.danielglaser.himbeerheim.R
 import de.danielglaser.himbeerheim.model.SSHConnection
+import de.danielglaser.himbeerheim.model.Util
 
 import kotlinx.android.synthetic.main.command_item.view.*
 
@@ -37,11 +38,13 @@ class CommandsAdapter : ArrayAdapter<ButtonCommand> {
         view.commandTitle_textView.text = buttonCommand.title
 
         view.on_button.setOnClickListener {
-            sshConnection.sendSSHCommand(command = buttonCommand.commandOn)
+            val result = sshConnection.sendSSHCommand(command = buttonCommand.commandOn)
+            handleError(result)
         }
 
         view.off_button.setOnClickListener {
-            sshConnection.sendSSHCommand(command = buttonCommand.commandOff)
+            val result = sshConnection.sendSSHCommand(command = buttonCommand.commandOff)
+            handleError(result)
         }
 
         view.editButton.setOnClickListener {
@@ -73,5 +76,13 @@ class CommandsAdapter : ArrayAdapter<ButtonCommand> {
         }
 
         return view
+    }
+
+    private fun handleError(error: String) {
+        if (error.equals(Util.usernameNotSet)) {
+            Toast.makeText(context, context.getString(R.string.error_usernameNotSet), Toast.LENGTH_SHORT).show()
+        } else if (error.equals(Util.hostNotSet)) {
+            Toast.makeText(context, context.getString(R.string.error_hostNotSet), Toast.LENGTH_SHORT).show()
+        }
     }
 }
