@@ -75,10 +75,10 @@ class SSHConnection(internal var host: String, internal var port: Int, internal 
         session!!.setConfig(prop)
 
         try {
-            session!!.connect()
+            session!!.connect(1000)
         } catch (e: JSchException) {
-            Log.e(TAG, "Session Connect", e)
-            return ""
+            //Log.e(TAG, "Session Connect", e)
+            return Util.connectTimeout
         }
 
         return ""

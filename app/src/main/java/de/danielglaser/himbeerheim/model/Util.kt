@@ -11,6 +11,7 @@ class Util {
     companion object {
         var hostNotSet = "hostNotSet"
         var usernameNotSet = "usernameNotSet"
+        var connectTimeout = "connectTimeout"
 
         fun setTheme(theme: Int) {
             val prefs = PreferenceManager.getDefaultSharedPreferences(BaseActivity.appContext.applicationContext)

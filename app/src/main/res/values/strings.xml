@@ -34,4 +34,5 @@
     <string name="command_key" translatable="false">command</string>
     <string name="error_hostNotSet">Host not set</string>
     <string name="error_usernameNotSet">Username not set</string>
+    <string name="error_connectTimeout">Connection failed</string>
 </resources>

@@ -83,6 +83,8 @@ class CommandsAdapter : ArrayAdapter<ButtonCommand> {
             Toast.makeText(context, context.getString(R.string.error_usernameNotSet), Toast.LENGTH_SHORT).show()
         } else if (error.equals(Util.hostNotSet)) {
             Toast.makeText(context, context.getString(R.string.error_hostNotSet), Toast.LENGTH_SHORT).show()
+        } else if (error.equals(Util.connectTimeout)) {
+            Toast.makeText(context, context.getString(R.string.error_connectTimeout), Toast.LENGTH_SHORT).show()
         }
     }
 }
