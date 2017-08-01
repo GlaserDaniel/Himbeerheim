@@ -4,9 +4,7 @@ import android.app.Fragment
 import android.content.Context
 import android.content.res.Configuration
 import android.os.Bundle
-import android.support.v7.widget.Toolbar
 import android.view.*
-import android.widget.Button
 import android.widget.Toast
 import de.danielglaser.himbeerheim.R
 import de.danielglaser.himbeerheim.model.SSHConnection
@@ -42,7 +40,7 @@ class MainActivityFragment() : Fragment() {
 
     fun handleGridViewSize(conf: Configuration) {
         if (conf.isLayoutSizeAtLeast(Configuration.SCREENLAYOUT_SIZE_XLARGE)) {
-            //großes Tabler
+            //großes Tablet
             if (conf.orientation == Configuration.ORIENTATION_PORTRAIT) {
                 view.buttons_gridView.numColumns = 3
             } else if (conf.orientation == Configuration.ORIENTATION_LANDSCAPE){
@@ -84,7 +82,7 @@ class MainActivityFragment() : Fragment() {
                 return true
             }
             R.id.action_powerOffRaspberryPi -> {
-                Toast.makeText(activity, "Schalte Raspberry Pi aus", Toast.LENGTH_SHORT).show()
+                Toast.makeText(activity, getString(R.string.turnPiOff), Toast.LENGTH_SHORT).show()
                 val result = sshConnection.sendSSHCommand("sudo shutdown -h 0")
                 Toast.makeText(activity, "Result: " + result, Toast.LENGTH_SHORT).show()
                 return true
@@ -100,9 +98,9 @@ class MainActivityFragment() : Fragment() {
 
         val view = inflater!!.inflate(R.layout.fragment_main, container, false)
 
-        sshConnection = m_data.sshConnection
+        sshConnection = m_data.m_sshConnection
 
-        val commandsAdapter = CommandsAdapter(activity, m_data.buttonCommands, sshConnection, mCallback)
+        val commandsAdapter = CommandsAdapter(activity, m_data.m_buttonCommands, sshConnection, mCallback)
 
         view.buttons_gridView.adapter = commandsAdapter
 
@@ -115,7 +113,7 @@ class MainActivityFragment() : Fragment() {
             code.add(1)
             val newButtonCommand = ButtonCommand("Licht", code, 4, m_data.getCommand())
 
-            m_data.buttonCommands.add(newButtonCommand)
+            m_data.m_buttonCommands.add(newButtonCommand)
 
             mCallback.onButtonCommandSelected(newButtonCommand)
 
@@ -136,7 +134,7 @@ class MainActivityFragment() : Fragment() {
         button.text = buttonCommand.title
         button.layoutParams = Toolbar.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
         button.setOnClickListener {
-            sshConnection.sendSSHCommand(command = buttonCommand.commandOn)
+            m_sshConnection.sendSSHCommand(command = buttonCommand.commandOn)
         }
         button.setOnLongClickListener{
             mCallback.onButtonCommandSelected(buttonCommand)

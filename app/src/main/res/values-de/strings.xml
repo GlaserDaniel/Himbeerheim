@@ -21,4 +21,5 @@
     <string name="error_hostNotSet">Host nicht gesetzt</string>
     <string name="error_usernameNotSet">Benutzername nicht gesetzt</string>
     <string name="error_connectTimeout">Verbindung fehlgeschlagen</string>
+    <string name="turnPiOff">Schalte Raspberry Pi aus</string>
 </resources>

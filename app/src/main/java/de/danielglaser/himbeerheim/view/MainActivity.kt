@@ -26,17 +26,19 @@ class MainActivity : BaseActivity(), MainActivityFragment.MainActivityFragmentLi
 
         // Wenn App das erste mal startet
 
-        if (data.buttonCommands.size == 0) {
+        if (data.m_buttonCommands.size == 0 && data.host.isNullOrBlank()) {
             // Erste Buttons hinzufügen
             val code = ArrayList<Any>()
             code.add(0)
             code.add(1)
             code.add(1)
             code.add(1)
-            code.add(1)
-            data.buttonCommands.add(ButtonCommand("Licht", code, 4, data.getCommand()))
-            code[4] = 0
-            data.buttonCommands.add(ButtonCommand("TV", code, 3, data.getCommand()))
+            code.add(0)
+            data.m_buttonCommands.add(ButtonCommand("Licht Wohnstube", code, 2, data.getCommand()))
+            data.m_buttonCommands.add(ButtonCommand("TV", code, 3, data.getCommand()))
+
+            code[4] = 1
+            data.m_buttonCommands.add(ButtonCommand("Nachtlicht", code, 4, data.getCommand()))
         }
 
         loadMainActivityFragment()
@@ -101,7 +103,7 @@ class MainActivity : BaseActivity(), MainActivityFragment.MainActivityFragmentLi
     }
 
     override fun onDeleteSelectedListener(buttonCommand: ButtonCommand) {
-        data.buttonCommands.remove(buttonCommand)
+        data.m_buttonCommands.remove(buttonCommand)
         data.save()
         loadMainActivityFragment()
     }

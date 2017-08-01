@@ -31,8 +31,9 @@
     <string name="port_key" translatable="false">port</string>
     <string name="port">Port</string>
     <string name="command_text">The path to the send file</string>
-    <string name="command_key" translatable="false">command</string>
+    <string name="command_key" translatable="false">m_command</string>
     <string name="error_hostNotSet">Host not set</string>
     <string name="error_usernameNotSet">Username not set</string>
     <string name="error_connectTimeout">Connection failed</string>
+    <string name="turnPiOff">Turn Raspberry Pi off</string>
 </resources>

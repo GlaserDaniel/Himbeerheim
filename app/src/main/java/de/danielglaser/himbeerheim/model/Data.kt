@@ -14,41 +14,77 @@ import java.util.ArrayList
 class Data : Serializable {
 
     companion object {
-        private const val serialVersionUID: Long = 3
+        private const val serialVersionUID: Long = 4
     }
 
-    var buttonCommands: ArrayList<ButtonCommand> = ArrayList()
-    var host = ""
-    var port = 22
-    var username = "pi"
-    var password = ""
+    var m_buttonCommands: ArrayList<ButtonCommand> = ArrayList()
+    private var m_host = ""
+    private var m_port = 22
+    private var m_username = "pi"
+    private var m_password = ""
 
-    private var command = "sudo ./raspberry-remote/send"
+    private var m_command = "sudo ./raspberry-remote/send"
 
     var editNoticeCounter = 0
 
     @Transient
-    lateinit var sshConnection: SSHConnection
+    lateinit var m_sshConnection: SSHConnection
+
+    var host: String
+        get() {
+            return m_host
+        }
+        set(value) {
+            m_host = value
+            initSSHConnection()
+        }
+
+    var port: Int
+        get() {
+            return m_port
+        }
+        set(value) {
+            m_port = value
+            initSSHConnection()
+        }
+
+    var username: String
+        get() {
+            return m_username
+        }
+        set(value) {
+            m_username = value
+            initSSHConnection()
+        }
+
+    var password: String
+        get() {
+            return m_password
+        }
+        set(value) {
+            m_password = value
+            initSSHConnection()
+        }
 
     init {
         load()
         initSSHConnection()
-        sshConnection.connect()
+        m_sshConnection.connect()
     }
 
     fun updateCommand(newCommand: String) {
-        command = newCommand
-        for (buttonCommand in buttonCommands) {
-            buttonCommand.setCommand(command)
+        m_command = newCommand
+        for (buttonCommand in m_buttonCommands) {
+            buttonCommand.setCommand(m_command)
         }
     }
 
-    fun getCommand() : String {
-        return command
+    fun getCommand(): String {
+        return m_command
     }
 
     private fun initSSHConnection() {
-        sshConnection = SSHConnection(host = host, port = port, username = username, password = password)
+        m_sshConnection = SSHConnection(host = m_host, port = m_port, username = m_username, password = m_password)
     }
 
     fun save() {
@@ -58,11 +94,11 @@ class Data : Serializable {
     fun load() {
         var loadObject = Persistence().readObject(filename = BaseActivity.appContext.getString(R.string.DATA_FILENAME))
         if (loadObject is Data) {
-            this.buttonCommands = loadObject.buttonCommands
-            this.host = loadObject.host
-            this.port = loadObject.port
-            this.username = loadObject.username
-            this.password = loadObject.password
+            this.m_buttonCommands = loadObject.m_buttonCommands
+            this.m_host = loadObject.m_host
+            this.m_port = loadObject.m_port
+            this.m_username = loadObject.m_username
+            this.m_password = loadObject.m_password
             this.editNoticeCounter = loadObject.editNoticeCounter
         }
     }
