@@ -8,7 +8,7 @@ import java.io.Serializable
 class ButtonCommand : Serializable {
 
     companion object {
-        private const val serialVersionUID: Long = 2
+        private const val serialVersionUID: Long = 3
     }
 
     var title: String = ""
