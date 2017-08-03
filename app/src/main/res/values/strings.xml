@@ -4,7 +4,7 @@
     <string name="DATA_FILENAME" translatable="false">data</string>
     <string name="save">save</string>
     <string name="command_title">title</string>
-    <string name="m_command">m_command</string>
+    <string name="m_path">m_path</string>
     <string name="command_delete">delete</string>
     <string name="editNotice">Long press on a button to edit</string>
     <string name="powerOffRaspberryPi">Power off Pi</string>
@@ -30,8 +30,8 @@
     <string name="current_theme_key" translatable="false">current_theme</string>
     <string name="port_key" translatable="false">port</string>
     <string name="port">Port</string>
-    <string name="command_text">The path to the send file</string>
-    <string name="command_key" translatable="false">m_command</string>
+    <string name="path_text">The path to the send file</string>
+    <string name="path_key" translatable="false">path</string>
     <string name="error_hostNotSet">Host not set</string>
     <string name="error_usernameNotSet">Username not set</string>
     <string name="error_connectTimeout">Connection failed</string>

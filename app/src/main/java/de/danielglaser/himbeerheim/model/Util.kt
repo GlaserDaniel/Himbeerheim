@@ -9,6 +9,10 @@ import de.danielglaser.himbeerheim.view.BaseActivity
  */
 class Util {
     companion object {
+        var defaultPort = 22
+        var defaultUsername = "pi"
+        var defaultPath = "sudo ./raspberry-remote/send"
+
         var hostNotSet = "hostNotSet"
         var usernameNotSet = "usernameNotSet"
         var connectTimeout = "connectTimeout"

@@ -43,7 +43,7 @@
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginTop="8dp"
-        android:text="@string/m_command"
+        android:text="@string/m_path"
         android:textSize="18sp"
         app:layout_constraintBottom_toTopOf="@+id/switch1"
         app:layout_constraintHorizontal_bias="0.507"

@@ -1,7 +1,9 @@
 package de.danielglaser.himbeerheim.model
 
+import android.preference.PreferenceManager
 import de.danielglaser.himbeerheim.R
 import de.danielglaser.himbeerheim.view.BaseActivity
+import de.danielglaser.himbeerheim.view.MainActivity
 import java.io.Serializable
 
 import java.util.ArrayList
@@ -19,11 +21,11 @@ class Data : Serializable {
 
     var m_buttonCommands: ArrayList<ButtonCommand> = ArrayList()
     private var m_host = ""
-    private var m_port = 22
-    private var m_username = "pi"
+    private var m_port = Util.defaultPort
+    private var m_username = Util.defaultUsername
     private var m_password = ""
 
-    private var m_command = "sudo ./raspberry-remote/send"
+    private var m_path = Util.defaultPath
 
     var editNoticeCounter = 0
 
@@ -72,15 +74,15 @@ class Data : Serializable {
         m_sshConnection.connect()
     }
 
-    fun updateCommand(newCommand: String) {
-        m_command = newCommand
+    fun updatePath(newPath: String) {
+        m_path = newPath
         for (buttonCommand in m_buttonCommands) {
-            buttonCommand.setCommand(m_command)
+            buttonCommand.setPath(m_path)
         }
     }
 
-    fun getCommand(): String {
-        return m_command
+    fun getPath(): String {
+        return m_path
     }
 
     private fun initSSHConnection() {
@@ -100,6 +102,38 @@ class Data : Serializable {
             this.m_username = loadObject.m_username
             this.m_password = loadObject.m_password
             this.editNoticeCounter = loadObject.editNoticeCounter
+        }
+
+        var prefs = PreferenceManager.getDefaultSharedPreferences(MainActivity.getContext())
+
+        var prefIP = prefs.getString(MainActivity.getContext().getString(R.string.ip_key), "")
+
+        if (this.host.isNullOrBlank() && !prefIP.isNullOrBlank()) {
+            this.host = prefIP
+        }
+
+        var prefPort = prefs.getString(MainActivity.getContext().getString(R.string.port_key), "")
+
+        if (this.m_port == Util.defaultPort && !prefPort.isNullOrBlank()) {
+            this.m_port = prefPort.toInt()
+        }
+
+        var prefUsername = prefs.getString(MainActivity.getContext().getString(R.string.username_key), "")
+
+        if (this.m_username.equals(Util.defaultUsername) && !prefUsername.isNullOrBlank()) {
+            this.m_username = prefUsername
+        }
+
+        var prefPassword = prefs.getString(MainActivity.getContext().getString(R.string.password_key), "")
+
+        if (this.m_password.isNullOrBlank() && !prefPassword.isNullOrBlank()) {
+            this.m_password = prefPassword
+        }
+
+        var prefPath = prefs.getString(MainActivity.getContext().getString(R.string.path_key), "")
+
+        if (this.m_path.equals(Util.defaultPath) && !prefPath.isNullOrBlank()) {
+            this.m_path = prefPath
         }
     }
 }

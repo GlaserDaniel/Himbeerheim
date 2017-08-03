@@ -38,7 +38,7 @@ class SettingsFragment() : PreferenceFragment(), Preference.OnPreferenceChangeLi
         initPortPref()
         initUsernamePref()
         initPasswordPref()
-        initCommandPref()
+        initPathPref()
         initThemePref()
     }
 
@@ -66,8 +66,8 @@ class SettingsFragment() : PreferenceFragment(), Preference.OnPreferenceChangeLi
                     updatePortPref(preference, newValue.toInt())
                     return true
                 }
-                getString(R.string.command_key) -> {
-                    updateCommandPref(preference, newValue)
+                getString(R.string.path_key) -> {
+                    updatePathPref(preference, newValue)
                     return true
                 }
                 else -> return false
@@ -141,15 +141,20 @@ class SettingsFragment() : PreferenceFragment(), Preference.OnPreferenceChangeLi
         m_data.password = value
     }
 
-    fun initCommandPref() {
-        val preference = findPreference(getString(R.string.command_key))
+    fun initPathPref() {
+        val preference = findPreference(getString(R.string.path_key))
         preference.onPreferenceChangeListener = this
-        preference.summary = m_data.getCommand()
+        preference.summary = m_data.getPath()
     }
 
-    fun updateCommandPref(preference: Preference, value: String) {
+    fun updatePathPref(preference: Preference, value: String) {
         preference.summary = value
-        m_data.updateCommand(value)
+        m_data.updatePath(value)
+    }
+
+    fun initThemePref() {
+        findPreference(getString(R.string.dark_theme_key)).onPreferenceChangeListener = this
+        //prefs.edit().putBoolean(getString(R.string.dark_theme_key), false).commit()
     }
 
     fun updateThemePref(value: Boolean) {
@@ -167,10 +172,5 @@ class SettingsFragment() : PreferenceFragment(), Preference.OnPreferenceChangeLi
         activity.finish()
 
         activity.startActivity(Intent(activity, activity.javaClass))
-    }
-
-    fun initThemePref() {
-        findPreference(getString(R.string.dark_theme_key)).onPreferenceChangeListener = this
-        //prefs.edit().putBoolean(getString(R.string.dark_theme_key), false).commit()
     }
 }

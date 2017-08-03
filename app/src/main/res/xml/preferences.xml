@@ -30,11 +30,11 @@
         android:title="@string/password" />
     <EditTextPreference
         android:defaultValue="sudo ./raspberry-remote/send"
-        android:key="@string/command_key"
+        android:key="@string/path_key"
         android:selectAllOnFocus="true"
         android:singleLine="true"
         android:summary="sudo ./raspberry-remote/send"
-        android:title="@string/command_text" />
+        android:title="@string/path_text" />
     <PreferenceCategory android:title="@string/Theme_Category" />
 
     <SwitchPreference

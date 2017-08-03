@@ -1,5 +1,6 @@
 package de.danielglaser.himbeerheim.view
 
+import android.content.Context
 import android.os.Bundle
 import android.view.Menu
 import de.danielglaser.himbeerheim.R
@@ -11,6 +12,14 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : BaseActivity(), MainActivityFragment.MainActivityFragmentListener, EditCommandFragment.EditCommandListener {
 
+    companion object {
+        private lateinit var appContext: Context
+
+        fun getContext() : Context {
+            return appContext
+        }
+    }
+
     lateinit var data: Data
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -18,6 +27,7 @@ class MainActivity : BaseActivity(), MainActivityFragment.MainActivityFragmentLi
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
 
+        appContext = this
         data = Data()
 
         if (savedInstanceState != null) {
@@ -34,11 +44,11 @@ class MainActivity : BaseActivity(), MainActivityFragment.MainActivityFragmentLi
             code.add(1)
             code.add(1)
             code.add(0)
-            data.m_buttonCommands.add(ButtonCommand("Licht Wohnstube", code, 2, data.getCommand()))
-            data.m_buttonCommands.add(ButtonCommand("TV", code, 3, data.getCommand()))
+            data.m_buttonCommands.add(ButtonCommand("Licht Wohnstube", code, 2, data.getPath()))
+            data.m_buttonCommands.add(ButtonCommand("TV", code, 3, data.getPath()))
 
             code[4] = 1
-            data.m_buttonCommands.add(ButtonCommand("Nachtlicht", code, 4, data.getCommand()))
+            data.m_buttonCommands.add(ButtonCommand("Nachtlicht", code, 4, data.getPath()))
         }
 
         loadMainActivityFragment()

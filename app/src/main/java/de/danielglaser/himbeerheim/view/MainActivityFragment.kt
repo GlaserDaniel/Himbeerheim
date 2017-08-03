@@ -111,7 +111,7 @@ class MainActivityFragment() : Fragment() {
             code.add(1)
             code.add(1)
             code.add(1)
-            val newButtonCommand = ButtonCommand("Licht", code, 4, m_data.getCommand())
+            val newButtonCommand = ButtonCommand("Licht", code, 4, m_data.getPath())
 
             m_data.m_buttonCommands.add(newButtonCommand)
 
