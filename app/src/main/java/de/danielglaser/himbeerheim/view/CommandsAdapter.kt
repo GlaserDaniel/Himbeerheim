@@ -31,9 +31,9 @@ class CommandsAdapter : ArrayAdapter<ButtonCommand> {
     private var mCallback: MainActivityFragment.MainActivityFragmentListener
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
-        var buttonCommand = items!!.get(position)
+        val buttonCommand = items!!.get(position)
 
-        var view = vi!!.inflate(R.layout.command_item, null)
+        val view = vi!!.inflate(R.layout.command_item, null)
 
         view.commandTitle_textView.text = buttonCommand.title
 
@@ -79,12 +79,10 @@ class CommandsAdapter : ArrayAdapter<ButtonCommand> {
     }
 
     private fun handleError(error: String) {
-        if (error.equals(Util.usernameNotSet)) {
-            Toast.makeText(context, context.getString(R.string.error_usernameNotSet), Toast.LENGTH_SHORT).show()
-        } else if (error.equals(Util.hostNotSet)) {
-            Toast.makeText(context, context.getString(R.string.error_hostNotSet), Toast.LENGTH_SHORT).show()
-        } else if (error.equals(Util.connectTimeout)) {
-            Toast.makeText(context, context.getString(R.string.error_connectTimeout), Toast.LENGTH_SHORT).show()
+        when {
+            error == Util.usernameNotSet -> Toast.makeText(context, context.getString(R.string.error_usernameNotSet), Toast.LENGTH_SHORT).show()
+            error == Util.hostNotSet -> Toast.makeText(context, context.getString(R.string.error_hostNotSet), Toast.LENGTH_SHORT).show()
+            error == Util.connectTimeout -> Toast.makeText(context, context.getString(R.string.error_connectTimeout), Toast.LENGTH_SHORT).show()
         }
     }
 }

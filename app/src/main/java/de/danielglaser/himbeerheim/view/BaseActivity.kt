@@ -28,7 +28,7 @@ open class BaseActivity: AppCompatActivity() {
         updateTheme()
     }
 
-    fun updateTheme() {
+    private fun updateTheme() {
         if (Util.getTheme() <= THEME_LIGHT) {
             setTheme(R.style.AppTheme)
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
