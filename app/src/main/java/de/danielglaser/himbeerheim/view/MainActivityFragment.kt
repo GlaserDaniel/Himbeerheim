@@ -27,9 +27,15 @@ class MainActivityFragment() : Fragment() {
 
     private lateinit var sshConnection: SSHConnection
 
+    private lateinit var commandsAdapter: CommandsAdapter
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true)
+
+        sshConnection = m_data.m_sshConnection
+
+        commandsAdapter = CommandsAdapter(activity, m_data.m_buttonCommands, sshConnection, mCallback)
     }
 
     override fun onResume() {
@@ -97,10 +103,6 @@ class MainActivityFragment() : Fragment() {
                               savedInstanceState: Bundle?): View? {
 
         val view = inflater!!.inflate(R.layout.fragment_main, container, false)
-
-        sshConnection = m_data.m_sshConnection
-
-        val commandsAdapter = CommandsAdapter(activity, m_data.m_buttonCommands, sshConnection, mCallback)
 
         view.buttons_gridView.adapter = commandsAdapter
 
