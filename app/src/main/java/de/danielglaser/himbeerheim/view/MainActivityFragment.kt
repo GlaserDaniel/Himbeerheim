@@ -25,7 +25,7 @@ class MainActivityFragment() : Fragment() {
 
     lateinit var m_data: Data
 
-    lateinit var sshConnection: SSHConnection
+    private lateinit var sshConnection: SSHConnection
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
