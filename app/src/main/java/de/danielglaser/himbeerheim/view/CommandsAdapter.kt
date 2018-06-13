@@ -1,6 +1,8 @@
 package de.danielglaser.himbeerheim.view
 
+import android.content.ClipData
 import android.content.Context
+import android.os.Build
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
@@ -52,30 +54,40 @@ class CommandsAdapter : ArrayAdapter<ButtonCommand> {
         }
 
         view.setOnLongClickListener {
-            Toast.makeText(context, "Drag and Drop comming soon! :-)", Toast.LENGTH_SHORT).show()
+            onLongClickStartDrag(view)
 
             true
         }
 
         view.on_button.setOnLongClickListener {
-            Toast.makeText(context, "Drag and Drop comming soon! :-)", Toast.LENGTH_SHORT).show()
+            onLongClickStartDrag(view)
 
             true
         }
 
         view.off_button.setOnLongClickListener {
-            Toast.makeText(context, "Drag and Drop comming soon! :-)", Toast.LENGTH_SHORT).show()
+            onLongClickStartDrag(view)
 
             true
         }
 
         view.editButton.setOnLongClickListener {
-            Toast.makeText(context, "Drag and Drop comming soon! :-)", Toast.LENGTH_SHORT).show()
+            onLongClickStartDrag(view)
 
             true
         }
 
         return view
+    }
+
+    private fun onLongClickStartDrag(view: View) {
+        val clipData = ClipData.newPlainText("","")
+        val myShadowBuilder = View.DragShadowBuilder(view)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            view.startDragAndDrop(clipData, myShadowBuilder, null, 0)
+        } else {
+            view.startDrag(clipData, myShadowBuilder, null, 0)
+        }
     }
 
     private fun handleError(error: String) {
