@@ -11,7 +11,7 @@
     <string name="command_button_on">on</string>
     <string name="command_button_off">off</string>
     <string name="password">Password</string>
-    <string name="ip">IP-adress</string>
+    <string name="ip">IP-address</string>
     <string name="username">Username</string>
     <string name="ip_key" translatable="false">ip</string>
     <string name="username_key" translatable="false">username</string>
@@ -20,13 +20,6 @@
     <string name="dark_theme_key" translatable="false" >dark_theme</string>
     <string name="general_Category">General</string>
     <string name="Theme_Category">Theme</string>
-
-    <string-array name="letters_array" translatable="false">
-        <item>A</item>
-        <item>B</item>
-        <item>C</item>
-        <item>D</item>
-    </string-array>
     <string name="current_theme_key" translatable="false">current_theme</string>
     <string name="port_key" translatable="false">port</string>
     <string name="port">Port</string>
@@ -36,4 +29,6 @@
     <string name="error_usernameNotSet">Username not set</string>
     <string name="error_connectTimeout">Connection failed</string>
     <string name="turnPiOff">Turn Raspberry Pi off</string>
+    <string name="welcome_dialog_title">Welcome</string>
+    <string name="welcome_dialog_text">Welcome to this app</string>
 </resources>

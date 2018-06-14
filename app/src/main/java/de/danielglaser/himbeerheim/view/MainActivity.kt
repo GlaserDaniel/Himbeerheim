@@ -1,7 +1,10 @@
 package de.danielglaser.himbeerheim.view
 
+import android.app.AlertDialog
 import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
+import android.preference.PreferenceManager
 import de.danielglaser.himbeerheim.R
 import de.danielglaser.himbeerheim.model.ButtonCommand
 import de.danielglaser.himbeerheim.model.Data
@@ -20,10 +23,14 @@ class MainActivity : BaseActivity(), MainActivityFragment.MainActivityFragmentLi
 
     lateinit var data: Data
 
+    lateinit var preferences: SharedPreferences
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
+
+        preferences = PreferenceManager.getDefaultSharedPreferences(this)
 
         appContext = this
         data = Data()
@@ -50,11 +57,36 @@ class MainActivity : BaseActivity(), MainActivityFragment.MainActivityFragmentLi
         }*/
 
         loadMainActivityFragment()
+
+        firstStart()
     }
 
     override fun onPause() {
         super.onPause()
         data.save()
+    }
+
+    private fun firstStart() {
+        val firstStart = preferences.getBoolean("first_start", true)
+
+        if (firstStart) {
+            showFirstStartDialog()
+        }
+
+        preferences.edit().putBoolean("first_start", false).apply()
+    }
+
+    private fun showFirstStartDialog() {
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle(R.string.welcome_dialog_title)
+                .setMessage(R.string.welcome_dialog_text)
+                .setCancelable(false)
+                .setPositiveButton(android.R.string.ok) { _, _ ->
+                    // make nothing, just close the dialog
+                }
+
+        val alert = builder.create()
+        alert.show()
     }
 
     private fun loadMainActivityFragment() {

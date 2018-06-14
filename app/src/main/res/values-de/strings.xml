@@ -11,7 +11,7 @@
     <string name="command_button_on">an</string>
     <string name="command_button_off">aus</string>
     <string name="password">Passwort</string>
-    <string name="ip">IP-Addresse</string>
+    <string name="ip">IP-Adresse</string>
     <string name="username">Benutzername</string>
     <string name="theme_text">Dunkles Design verwenden</string>
     <string name="general_Category">Allgemein</string>
@@ -22,4 +22,6 @@
     <string name="error_usernameNotSet">Benutzername nicht gesetzt</string>
     <string name="error_connectTimeout">Verbindung fehlgeschlagen</string>
     <string name="turnPiOff">Schalte Raspberry Pi aus</string>
+    <string name="welcome_dialog_title">Willkommen</string>
+    <string name="welcome_dialog_text">Willkommen zu dieser App</string>
 </resources>
