@@ -1,5 +1,6 @@
 package de.danielglaser.himbeerheim.view
 
+import android.annotation.SuppressLint
 import android.app.Fragment
 import android.content.Context
 import android.os.Bundle
@@ -16,12 +17,13 @@ import kotlinx.android.synthetic.main.fragment_edit_command.view.*
  */
 class EditCommandFragment() : Fragment() {
 
+    @SuppressLint("ValidFragment")
     constructor(buttonCommand: ButtonCommand) : this() {
         retainInstance = true
         this.buttonCommand = buttonCommand
     }
 
-    lateinit var buttonCommand: ButtonCommand
+    private lateinit var buttonCommand: ButtonCommand
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -55,14 +57,14 @@ class EditCommandFragment() : Fragment() {
             buttonCommand.title = view.title_EditText.text.toString()
             //buttonCommand.commandOn = view.command_EditText.text.toString()
 
-            val code = ArrayList<Any>()
-            code.add(view.switch1.isChecked)
-            code.add(view.switch2.isChecked)
-            code.add(view.switch3.isChecked)
-            code.add(view.switch4.isChecked)
-            code.add(view.switch5.isChecked)
+            val tmpCode = ArrayList<Any>()
+            tmpCode.add(view.switch1.isChecked)
+            tmpCode.add(view.switch2.isChecked)
+            tmpCode.add(view.switch3.isChecked)
+            tmpCode.add(view.switch4.isChecked)
+            tmpCode.add(view.switch5.isChecked)
 
-            buttonCommand.setCode(code)
+            buttonCommand.setCode(tmpCode)
 
             buttonCommand.setLetter(view.spinner.selectedItem)
 
@@ -76,15 +78,15 @@ class EditCommandFragment() : Fragment() {
 
         var index = 0
 
-        for (i in 0..spinner.count - 1) {
-            if (spinner.getItemAtPosition(i).equals(myString)) {
+        for (i in 0 until spinner.count) {
+            if (spinner.getItemAtPosition(i) == myString) {
                 index = i
             }
         }
         return index
     }
 
-    lateinit var mCallback: EditCommandListener
+    private lateinit var mCallback: EditCommandListener
 
     // Container Activity must implement this interface
     interface EditCommandListener {

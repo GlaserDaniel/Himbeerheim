@@ -1,5 +1,6 @@
 package de.danielglaser.himbeerheim.view
 
+import android.annotation.SuppressLint
 import android.app.Fragment
 import android.content.Context
 import android.content.res.Configuration
@@ -18,12 +19,13 @@ import kotlinx.android.synthetic.main.fragment_main.view.*
  */
 class MainActivityFragment() : Fragment() {
 
+    @SuppressLint("ValidFragment")
     constructor(data: Data) : this() {
         retainInstance = true
-        this.m_data = data
+        this.mData = data
     }
 
-    lateinit var m_data: Data
+    private lateinit var mData: Data
 
     private lateinit var sshConnection: SSHConnection
 
@@ -34,9 +36,9 @@ class MainActivityFragment() : Fragment() {
         setHasOptionsMenu(true)
         retainInstance = true
 
-        sshConnection = m_data.m_sshConnection
+        sshConnection = mData.m_sshConnection
 
-        commandsAdapter = CommandsAdapter(activity, m_data.m_buttonCommands, sshConnection, mCallback)
+        commandsAdapter = CommandsAdapter(activity, mData.m_buttonCommands, sshConnection, mCallback)
     }
 
     override fun onResume() {
@@ -45,7 +47,7 @@ class MainActivityFragment() : Fragment() {
         handleGridViewSize(resources.configuration)
     }
 
-    fun handleGridViewSize(conf: Configuration) {
+    private fun handleGridViewSize(conf: Configuration) {
         if (conf.isLayoutSizeAtLeast(Configuration.SCREENLAYOUT_SIZE_XLARGE)) {
             //großes Tablet
             if (conf.orientation == Configuration.ORIENTATION_PORTRAIT) {
@@ -83,20 +85,20 @@ class MainActivityFragment() : Fragment() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
+        return when (item.itemId) {
             R.id.action_settings -> {
                 mCallback.onSettingsSelected()
-                return true
+                true
             }
             R.id.action_powerOffRaspberryPi -> {
                 Toast.makeText(activity, getString(R.string.turnPiOff), Toast.LENGTH_SHORT).show()
                 val result = sshConnection.sendSSHCommand("sudo shutdown -h 0")
-                Toast.makeText(activity, "Result: " + result, Toast.LENGTH_SHORT).show()
-                return true
+                Toast.makeText(activity, "Result: $result", Toast.LENGTH_SHORT).show()
+                true
             }
         //R.id.search -> consume { MenuItemCompat.expandActionView(item) }
         //R.id.settings -> consume { navigateToSettings() }
-            else -> return super.onOptionsItemSelected(item)
+            else -> super.onOptionsItemSelected(item)
         }
     }
 
@@ -125,17 +127,17 @@ class MainActivityFragment() : Fragment() {
             code.add(1)
             code.add(1)
             code.add(1)
-            val newButtonCommand = ButtonCommand("Licht", code, 4, m_data.getPath())
+            val newButtonCommand = ButtonCommand("Licht", code, 4, mData.getPath())
 
-            m_data.m_buttonCommands.add(newButtonCommand)
+            mData.m_buttonCommands.add(newButtonCommand)
 
             mCallback.onButtonCommandSelected(newButtonCommand)
 
-            if (m_data.editNoticeCounter > 0) {
+            if (mData.editNoticeCounter > 0) {
                 Toast.makeText(activity, getString(R.string.editNotice), Toast.LENGTH_SHORT).show()
-                m_data.editNoticeCounter--
+                mData.editNoticeCounter--
             }
-            m_data.save()
+            mData.save()
 
             commandsAdapter.notifyDataSetChanged()
         }
@@ -158,7 +160,7 @@ class MainActivityFragment() : Fragment() {
         return button
     }*/
 
-    lateinit var mCallback: MainActivityFragmentListener
+    private lateinit var mCallback: MainActivityFragmentListener
 
     // Container Activity must implement this interface
     interface MainActivityFragmentListener {

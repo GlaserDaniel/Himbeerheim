@@ -2,11 +2,9 @@ package de.danielglaser.himbeerheim.view
 
 import android.content.Context
 import android.os.Bundle
-import android.view.Menu
 import de.danielglaser.himbeerheim.R
 import de.danielglaser.himbeerheim.model.ButtonCommand
 import de.danielglaser.himbeerheim.model.Data
-
 import kotlinx.android.synthetic.main.activity_main.*
 
 
@@ -34,9 +32,9 @@ class MainActivity : BaseActivity(), MainActivityFragment.MainActivityFragmentLi
             return
         }
 
-        // Wenn App das erste mal startet
+        /*// Wenn App das erste mal startet
 
-        if (data.m_buttonCommands.size == 0 && data.host.isNullOrBlank()) {
+        if (data.m_buttonCommands.size == 0 && data.host.isBlank()) {
             // Erste Buttons hinzufügen
             val code = ArrayList<Any>()
             code.add(0)
@@ -49,7 +47,7 @@ class MainActivity : BaseActivity(), MainActivityFragment.MainActivityFragmentLi
 
             code[4] = 1
             data.m_buttonCommands.add(ButtonCommand("Nachtlicht", code, 4, data.getPath()))
-        }
+        }*/
 
         loadMainActivityFragment()
     }
@@ -88,10 +86,6 @@ class MainActivity : BaseActivity(), MainActivityFragment.MainActivityFragmentLi
         trans.addToBackStack(null)
         trans.replace(R.id.fragment_container, newFragment)
         trans.commit()
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        return super.onCreateOptionsMenu(menu)
     }
 
     override fun onButtonCommandSelected(buttonCommand: ButtonCommand) {

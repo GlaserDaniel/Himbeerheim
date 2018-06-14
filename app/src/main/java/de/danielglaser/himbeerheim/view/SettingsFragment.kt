@@ -1,5 +1,6 @@
 package de.danielglaser.himbeerheim.view
 
+import android.annotation.SuppressLint
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.preference.Preference
@@ -18,14 +19,15 @@ import android.content.Intent
  */
 class SettingsFragment() : PreferenceFragment(), Preference.OnPreferenceChangeListener {
 
-    var TAG = "SettingsFragment"
+    private val mTAG = "SettingsFragment"
 
-    lateinit var m_data: Data
-    lateinit var prefs: SharedPreferences
+    lateinit var mData: Data
+    private lateinit var prefs: SharedPreferences
 
+    @SuppressLint("ValidFragment")
     constructor(data: Data): this() {
         retainInstance = true
-        this.m_data = data
+        this.mData = data
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -44,7 +46,7 @@ class SettingsFragment() : PreferenceFragment(), Preference.OnPreferenceChangeLi
 
     override fun onDestroy() {
         super.onDestroy()
-        m_data.save()
+        mData.save()
     }
 
     override fun onPreferenceChange(preference: Preference?, newValue: Any?): Boolean {
@@ -67,30 +69,30 @@ class SettingsFragment() : PreferenceFragment(), Preference.OnPreferenceChangeLi
                     return true
                 }
                 getString(R.string.path_key) -> {
-                    updatePathPref(preference, newValue)
+                    updatePathPref(this, preference, newValue)
                     return true
                 }
                 else -> return false
             }
         } else if (preference is Preference && newValue is Boolean) {
-            when (preference.key) {
+            return when (preference.key) {
                 getString(R.string.dark_theme_key) -> {
                     updateThemePref(newValue)
-                    return true
+                    true
                 }
-                else -> return false
+                else -> false
             }
         } else {
             Toast.makeText(activity, "Etwas ist schief gelaufen", Toast.LENGTH_SHORT).show()
-            Log.d(TAG, "OnPrefenceChange(), preference no Preference or newValue no String")
+            Log.d(mTAG, "OnPrefenceChange(), preference no Preference or newValue no String")
             return false
         }
     }
 
-    fun initIpPref() {
+    private fun initIpPref() {
         val preference = findPreference(getString(R.string.ip_key))
         preference.onPreferenceChangeListener = this
-        preference.summary = m_data.host
+        preference.summary = mData.host
 
         /*preference.setOnPreferenceChangeListener { preference, any ->
             if (preference is Preference) {
@@ -103,61 +105,56 @@ class SettingsFragment() : PreferenceFragment(), Preference.OnPreferenceChangeLi
         }*/
     }
 
-    fun updateIpPref(preference: Preference, value: String) {
+    private fun updateIpPref(preference: Preference, value: String) {
         preference.summary = value
-        m_data.host = value
+        mData.host = value
     }
 
-    fun initPortPref() {
+    private fun initPortPref() {
         val preference = findPreference(getString(R.string.port_key))
         preference.onPreferenceChangeListener = this
-        preference.summary = m_data.port.toString()
+        preference.summary = mData.port.toString()
     }
 
-    fun updatePortPref(preference: Preference, value: Int) {
+    private fun updatePortPref(preference: Preference, value: Int) {
         preference.summary = value.toString()
-        m_data.port = value
+        mData.port = value
     }
 
-    fun initUsernamePref() {
+    private fun initUsernamePref() {
         val preference = findPreference(getString(R.string.username_key))
         preference.onPreferenceChangeListener = this
-        preference.summary = m_data.username
+        preference.summary = mData.username
     }
 
-    fun updateUsernamePref(preference: Preference, value: String) {
+    private fun updateUsernamePref(preference: Preference, value: String) {
         preference.summary = value
-        m_data.username = value
+        mData.username = value
     }
 
-    fun initPasswordPref() {
+    private fun initPasswordPref() {
         val preference = findPreference(getString(R.string.password_key))
         preference.onPreferenceChangeListener = this
-        preference.summary = m_data.password
+        preference.summary = mData.password
     }
 
-    fun updatePasswordPref(preference: Preference, value: String) {
+    private fun updatePasswordPref(preference: Preference, value: String) {
         preference.summary = value
-        m_data.password = value
+        mData.password = value
     }
 
-    fun initPathPref() {
+    private fun initPathPref() {
         val preference = findPreference(getString(R.string.path_key))
         preference.onPreferenceChangeListener = this
-        preference.summary = m_data.getPath()
+        preference.summary = mData.getPath()
     }
 
-    fun updatePathPref(preference: Preference, value: String) {
-        preference.summary = value
-        m_data.updatePath(value)
-    }
-
-    fun initThemePref() {
+    private fun initThemePref() {
         findPreference(getString(R.string.dark_theme_key)).onPreferenceChangeListener = this
         //prefs.edit().putBoolean(getString(R.string.dark_theme_key), false).commit()
     }
 
-    fun updateThemePref(value: Boolean) {
+    private fun updateThemePref(value: Boolean) {
         prefs.edit().putBoolean(getString(R.string.dark_theme_key), value).apply()
 
         if (value) {
@@ -172,5 +169,12 @@ class SettingsFragment() : PreferenceFragment(), Preference.OnPreferenceChangeLi
         activity.finish()
 
         activity.startActivity(Intent(activity, activity.javaClass))
+    }
+
+    companion object {
+        fun updatePathPref(settingsFragment: SettingsFragment, preference: Preference, value: String) {
+            preference.summary = value
+            settingsFragment.mData.updatePath(value)
+        }
     }
 }

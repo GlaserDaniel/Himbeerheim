@@ -1,10 +1,9 @@
 package de.danielglaser.himbeerheim.view
 
+import android.annotation.SuppressLint
 import android.content.ClipData
 import android.content.ClipDescription
 import android.content.Context
-import android.graphics.Color
-import android.graphics.ColorFilter
 import android.os.Build
 import android.util.Log
 import android.view.DragEvent
@@ -23,26 +22,16 @@ import kotlinx.android.synthetic.main.command_item.view.*
 /**
  * Created by Daniel on 23.07.2017.
  */
-class CommandsAdapter : ArrayAdapter<ButtonCommand> {
+class CommandsAdapter(context: Context, items: ArrayList<ButtonCommand>, private var sshConnection: SSHConnection, private var mCallback: MainActivityFragment.MainActivityFragmentListener) : ArrayAdapter<ButtonCommand>(context, 0, items) {
 
-    private val TAG = "CommandsAdapter"
-
-    constructor(context: Context, items: ArrayList<ButtonCommand>, sshConnection: SSHConnection, mCallback: MainActivityFragment.MainActivityFragmentListener) : super(context, 0, items) {
-        this.items = items
-        this.sshConnection = sshConnection
-        this.mCallback = mCallback
-        vi = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-    }
-
-    private var items: ArrayList<ButtonCommand>? = ArrayList()
+    private var items: ArrayList<ButtonCommand>? = items
     private var vi: LayoutInflater? = null
-    private var sshConnection: SSHConnection
-    private var mCallback: MainActivityFragment.MainActivityFragmentListener
 
+    @SuppressLint("ViewHolder")
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
-        val buttonCommand = items!!.get(position)
+        val buttonCommand = items!![position]
 
-        val view = vi!!.inflate(R.layout.command_item, null)
+        val view = vi!!.inflate(R.layout.command_item, parent)
 
         view.commandTitle_textView.text = buttonCommand.title
 
@@ -224,16 +213,21 @@ class CommandsAdapter : ArrayAdapter<ButtonCommand> {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             view.startDragAndDrop(clipData, myShadowBuilder, null, 0)
         } else {
+            @Suppress("DEPRECATION")
             view.startDrag(clipData, myShadowBuilder, null, 0)
         }
         view.alpha = 0.5F
     }
 
     private fun handleError(error: String) {
-        when {
-            error == Util.usernameNotSet -> Toast.makeText(context, context.getString(R.string.error_usernameNotSet), Toast.LENGTH_SHORT).show()
-            error == Util.hostNotSet -> Toast.makeText(context, context.getString(R.string.error_hostNotSet), Toast.LENGTH_SHORT).show()
-            error == Util.connectTimeout -> Toast.makeText(context, context.getString(R.string.error_connectTimeout), Toast.LENGTH_SHORT).show()
+        when (error) {
+            Util.usernameNotSet -> Toast.makeText(context, context.getString(R.string.error_usernameNotSet), Toast.LENGTH_SHORT).show()
+            Util.hostNotSet -> Toast.makeText(context, context.getString(R.string.error_hostNotSet), Toast.LENGTH_SHORT).show()
+            Util.connectTimeout -> Toast.makeText(context, context.getString(R.string.error_connectTimeout), Toast.LENGTH_SHORT).show()
         }
+    }
+
+    init {
+        vi = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
     }
 }

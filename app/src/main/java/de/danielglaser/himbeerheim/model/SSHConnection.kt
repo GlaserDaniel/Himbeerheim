@@ -1,5 +1,6 @@
 package de.danielglaser.himbeerheim.model
 
+import android.annotation.SuppressLint
 import android.os.AsyncTask
 import android.util.Log
 import com.jcraft.jsch.ChannelExec
@@ -16,17 +17,18 @@ import java.util.Properties
 
 class SSHConnection(internal var host: String, internal var port: Int, internal var username: String, internal var password: String) {
 
-    private var TAG = "SSHConnection"
+    private var mTAG = "SSHConnection"
 
-    var session: Session? = null
+    private var session: Session? = null
 
     fun connect(): String {
-        val task = object : AsyncTask<Void, Void, String>() {
+        val task = @SuppressLint("StaticFieldLeak")
+        object : AsyncTask<Void, Void, String>() {
             override fun doInBackground(vararg p0: Void?): String {
                 try {
                     return internalConnect()
                 } catch (e: Exception) {
-                    Log.e(TAG, "internalConnect", e)
+                    Log.e(mTAG, "internalConnect", e)
                 }
                 return ""
             }
@@ -36,12 +38,13 @@ class SSHConnection(internal var host: String, internal var port: Int, internal 
     }
 
     fun sendSSHCommand(command: String): String {
-        val task = object : AsyncTask<String, Void, String>() {
+        val task = @SuppressLint("StaticFieldLeak")
+        object : AsyncTask<String, Void, String>() {
             override fun doInBackground(vararg params: String): String {
                 try {
                     return internalSendSSHCommand(command)
                 } catch (e: Exception) {
-                    Log.e(TAG, "internalSendSSHCommand", e)
+                    Log.e(mTAG, "internalSendSSHCommand", e)
                 }
 
                 return ""
@@ -54,16 +57,16 @@ class SSHConnection(internal var host: String, internal var port: Int, internal 
     private fun internalConnect(): String {
         val jsch = JSch()
 
-        if (username.isNullOrBlank()) {
+        if (username.isBlank()) {
             return Util.usernameNotSet
-        } else if (host.isNullOrBlank()) {
+        } else if (host.isBlank()) {
             return Util.hostNotSet
         }
 
         try {
             session = jsch.getSession(username, host, port)
         } catch (e: JSchException) {
-            Log.e(TAG, "GetSession", e)
+            Log.e(mTAG, "GetSession", e)
             return ""
         }
 
@@ -71,13 +74,13 @@ class SSHConnection(internal var host: String, internal var port: Int, internal 
 
         // Avoid asking for key confirmation
         val prop = Properties()
-        prop.put("StrictHostKeyChecking", "no")
+        prop["StrictHostKeyChecking"] = "no"
         session!!.setConfig(prop)
 
         try {
             session!!.connect(1000)
         } catch (e: JSchException) {
-            //Log.e(TAG, "Session Connect", e)
+            //Log.e(mTAG, "Session Connect", e)
             return Util.connectTimeout
         }
 
@@ -96,7 +99,7 @@ class SSHConnection(internal var host: String, internal var port: Int, internal 
         }
 
         if (session == null || !session!!.isConnected) {
-            Log.e(TAG, "session null or not connected")
+            Log.e(mTAG, "session null or not connected")
             return ""
         }
 
@@ -105,7 +108,7 @@ class SSHConnection(internal var host: String, internal var port: Int, internal 
         try {
             channelssh = session!!.openChannel("exec") as ChannelExec
         } catch (e: JSchException) {
-            Log.e(TAG, "openChannel", e)
+            Log.e(mTAG, "openChannel", e)
             return ""
         }
 
@@ -117,12 +120,12 @@ class SSHConnection(internal var host: String, internal var port: Int, internal 
         try {
             channelssh.connect()
         } catch (e: JSchException) {
-            Log.e(TAG, "Channelssh Connect", e)
+            Log.e(mTAG, "Channelssh Connect", e)
         }
 
         channelssh.disconnect()
 
-        Log.d(TAG, "Result from SSH: " + baos.toString())
+        Log.d(mTAG, "Result from SSH: " + baos.toString())
         return baos.toString()
     }
 }
