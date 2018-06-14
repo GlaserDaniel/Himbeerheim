@@ -27,11 +27,11 @@ class CommandsAdapter(context: Context, items: ArrayList<ButtonCommand>, private
     private var items: ArrayList<ButtonCommand>? = items
     private var vi: LayoutInflater? = null
 
-    @SuppressLint("ViewHolder")
+    @SuppressLint("ViewHolder", "InflateParams")
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
         val buttonCommand = items!![position]
 
-        val view = vi!!.inflate(R.layout.command_item, parent)
+        val view = vi!!.inflate(R.layout.command_item, null)
 
         view.commandTitle_textView.text = buttonCommand.title
 
