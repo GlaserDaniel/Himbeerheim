@@ -36,6 +36,11 @@ class MainActivityFragment() : Fragment() {
         setHasOptionsMenu(true)
         retainInstance = true
 
+        //Maybe bugfix for long in background bug
+        if (mData == null) {
+            mData = Data()
+        }
+
         sshConnection = mData.m_sshConnection
 
         commandsAdapter = CommandsAdapter(activity, mData.m_buttonCommands, sshConnection, mCallback)
