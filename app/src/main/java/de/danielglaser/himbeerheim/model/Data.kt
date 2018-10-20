@@ -93,8 +93,8 @@ class Data : Serializable {
         Persistence().saveObject(`object` = this, filename = BaseActivity.appContext.getString(R.string.DATA_FILENAME))
     }
 
-    fun load() {
-        var loadObject = Persistence().readObject(filename = BaseActivity.appContext.getString(R.string.DATA_FILENAME))
+    private fun load() {
+        val loadObject = Persistence().readObject(filename = BaseActivity.appContext.getString(R.string.DATA_FILENAME))
         if (loadObject is Data) {
             this.m_buttonCommands = loadObject.m_buttonCommands
             this.m_host = loadObject.m_host
@@ -104,33 +104,33 @@ class Data : Serializable {
             this.editNoticeCounter = loadObject.editNoticeCounter
         }
 
-        var prefs = PreferenceManager.getDefaultSharedPreferences(MainActivity.getContext())
+        val prefs = PreferenceManager.getDefaultSharedPreferences(MainActivity.getContext())
 
-        var prefIP = prefs.getString(MainActivity.getContext().getString(R.string.ip_key), "")
+        val prefIP = prefs.getString(MainActivity.getContext().getString(R.string.ip_key), "")
 
         if (this.host.isNullOrBlank() && !prefIP.isNullOrBlank()) {
             this.host = prefIP
         }
 
-        var prefPort = prefs.getString(MainActivity.getContext().getString(R.string.port_key), "")
+        val prefPort = prefs.getString(MainActivity.getContext().getString(R.string.port_key), "")
 
         if (this.m_port == Util.defaultPort && !prefPort.isNullOrBlank()) {
             this.m_port = prefPort.toInt()
         }
 
-        var prefUsername = prefs.getString(MainActivity.getContext().getString(R.string.username_key), "")
+        val prefUsername = prefs.getString(MainActivity.getContext().getString(R.string.username_key), "")
 
         if (this.m_username.equals(Util.defaultUsername) && !prefUsername.isNullOrBlank()) {
             this.m_username = prefUsername
         }
 
-        var prefPassword = prefs.getString(MainActivity.getContext().getString(R.string.password_key), "")
+        val prefPassword = prefs.getString(MainActivity.getContext().getString(R.string.password_key), "")
 
         if (this.m_password.isNullOrBlank() && !prefPassword.isNullOrBlank()) {
             this.m_password = prefPassword
         }
 
-        var prefPath = prefs.getString(MainActivity.getContext().getString(R.string.path_key), "")
+        val prefPath = prefs.getString(MainActivity.getContext().getString(R.string.path_key), "")
 
         if (this.m_path.equals(Util.defaultPath) && !prefPath.isNullOrBlank()) {
             this.m_path = prefPath
