@@ -37,7 +37,7 @@ class MainActivityFragment() : Fragment() {
         retainInstance = true
 
         //Maybe bugfix for long in background bug
-        if (mData == null) {
+        if (mData == null || mData.m_sshConnection == null) {
             mData = Data()
         }
 
