@@ -7,7 +7,7 @@ import android.os.Bundle
 import android.preference.PreferenceManager
 import de.danielglaser.himbeerheim.R
 import de.danielglaser.himbeerheim.model.ButtonCommand
-import de.danielglaser.himbeerheim.model.Data
+import de.danielglaser.himbeerheim.model.DataSingleton
 import kotlinx.android.synthetic.main.activity_main.*
 
 
@@ -21,8 +21,6 @@ class MainActivity : BaseActivity(), MainActivityFragment.MainActivityFragmentLi
         }
     }
 
-    lateinit var data: Data
-
     lateinit var preferences: SharedPreferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -33,7 +31,6 @@ class MainActivity : BaseActivity(), MainActivityFragment.MainActivityFragmentLi
         preferences = PreferenceManager.getDefaultSharedPreferences(this)
 
         appContext = this
-        data = Data()
 
         if (savedInstanceState != null) {
             return
@@ -41,7 +38,7 @@ class MainActivity : BaseActivity(), MainActivityFragment.MainActivityFragmentLi
 
         /*// Wenn App das erste mal startet
 
-        if (data.m_buttonCommands.size == 0 && data.host.isBlank()) {
+        if (DataSingleton.mData.m_buttonCommands.size == 0 && DataSingleton.mData.host.isBlank()) {
             // Erste Buttons hinzufügen
             val code = ArrayList<Any>()
             code.add(0)
@@ -49,11 +46,11 @@ class MainActivity : BaseActivity(), MainActivityFragment.MainActivityFragmentLi
             code.add(1)
             code.add(1)
             code.add(0)
-            data.m_buttonCommands.add(ButtonCommand("Licht Wohnstube", code, 2, data.getPath()))
-            data.m_buttonCommands.add(ButtonCommand("TV", code, 3, data.getPath()))
+            DataSingleton.mData.m_buttonCommands.add(ButtonCommand("Licht Wohnstube", code, 2, DataSingleton.mData.getPath()))
+            DataSingleton.mData.m_buttonCommands.add(ButtonCommand("TV", code, 3, DataSingleton.mData.getPath()))
 
             code[4] = 1
-            data.m_buttonCommands.add(ButtonCommand("Nachtlicht", code, 4, data.getPath()))
+            DataSingleton.mData.m_buttonCommands.add(ButtonCommand("Nachtlicht", code, 4, DataSingleton.mData.getPath()))
         }*/
 
         loadMainActivityFragment()
@@ -63,7 +60,7 @@ class MainActivity : BaseActivity(), MainActivityFragment.MainActivityFragmentLi
 
     override fun onPause() {
         super.onPause()
-        data.save()
+        DataSingleton.mData.save()
     }
 
     private fun firstStart() {
@@ -92,7 +89,7 @@ class MainActivity : BaseActivity(), MainActivityFragment.MainActivityFragmentLi
     private fun loadMainActivityFragment() {
         val manager = fragmentManager
         manager.popBackStack()
-        val newFragment = MainActivityFragment(data)
+        val newFragment = MainActivityFragment()
 
         val trans = manager.beginTransaction()
         trans.replace(R.id.fragment_container, newFragment)
@@ -102,7 +99,7 @@ class MainActivity : BaseActivity(), MainActivityFragment.MainActivityFragmentLi
     private fun loadSettingsFragment() {
         val manager = fragmentManager
         manager.popBackStack()
-        val newFragment = SettingsFragment(data)
+        val newFragment = SettingsFragment()
 
         val trans = manager.beginTransaction()
         trans.addToBackStack(null)
@@ -129,18 +126,18 @@ class MainActivity : BaseActivity(), MainActivityFragment.MainActivityFragmentLi
     }
 
     override fun onSaveSelectedListener() {
-        data.save()
+        DataSingleton.mData.save()
         loadMainActivityFragment()
     }
 
     override fun onCancelSelectedListener() {
-        data.save()
+        DataSingleton.mData.save()
         loadMainActivityFragment()
     }
 
     override fun onDeleteSelectedListener(buttonCommand: ButtonCommand) {
-        data.m_buttonCommands.remove(buttonCommand)
-        data.save()
+        DataSingleton.mData.m_buttonCommands.remove(buttonCommand)
+        DataSingleton.mData.save()
         loadMainActivityFragment()
     }
 }

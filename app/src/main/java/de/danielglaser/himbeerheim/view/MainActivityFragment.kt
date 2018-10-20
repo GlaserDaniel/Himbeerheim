@@ -8,24 +8,17 @@ import android.os.Bundle
 import android.view.*
 import android.widget.Toast
 import de.danielglaser.himbeerheim.R
-import de.danielglaser.himbeerheim.model.SSHConnection
 import de.danielglaser.himbeerheim.model.ButtonCommand
-import de.danielglaser.himbeerheim.model.Data
-
+import de.danielglaser.himbeerheim.model.DataSingleton
+import de.danielglaser.himbeerheim.model.SSHConnection
 import kotlinx.android.synthetic.main.fragment_main.view.*
 
 /**
  * A placeholder fragment containing a simple view.
  */
-class MainActivityFragment() : Fragment() {
+class MainActivityFragment : Fragment() {
 
     @SuppressLint("ValidFragment")
-    constructor(data: Data) : this() {
-        retainInstance = true
-        this.mData = data
-    }
-
-    private lateinit var mData: Data
 
     private lateinit var sshConnection: SSHConnection
 
@@ -36,14 +29,9 @@ class MainActivityFragment() : Fragment() {
         setHasOptionsMenu(true)
         retainInstance = true
 
-        //Maybe bugfix for long in background bug
-        if (mData == null || mData.m_sshConnection == null) {
-            mData = Data()
-        }
+        sshConnection = DataSingleton.mData.m_sshConnection
 
-        sshConnection = mData.m_sshConnection
-
-        commandsAdapter = CommandsAdapter(activity, mData.m_buttonCommands, sshConnection, mCallback)
+        commandsAdapter = CommandsAdapter(activity, DataSingleton.mData.m_buttonCommands, sshConnection, mCallback)
     }
 
     override fun onResume() {
@@ -132,17 +120,17 @@ class MainActivityFragment() : Fragment() {
             code.add(1)
             code.add(1)
             code.add(1)
-            val newButtonCommand = ButtonCommand("Licht", code, 4, mData.getPath())
+            val newButtonCommand = ButtonCommand("Licht", code, 4, DataSingleton.mData.getPath())
 
-            mData.m_buttonCommands.add(newButtonCommand)
+            DataSingleton.mData.m_buttonCommands.add(newButtonCommand)
 
             mCallback.onButtonCommandSelected(newButtonCommand)
 
-            if (mData.editNoticeCounter > 0) {
+            if (DataSingleton.mData.editNoticeCounter > 0) {
                 Toast.makeText(activity, getString(R.string.editNotice), Toast.LENGTH_SHORT).show()
-                mData.editNoticeCounter--
+                DataSingleton.mData.editNoticeCounter--
             }
-            mData.save()
+            DataSingleton.mData.save()
 
             commandsAdapter.notifyDataSetChanged()
         }

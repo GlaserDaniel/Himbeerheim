@@ -1,6 +1,7 @@
 package de.danielglaser.himbeerheim.view
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.preference.Preference
@@ -9,29 +10,24 @@ import android.preference.PreferenceManager
 import android.util.Log
 import android.widget.Toast
 import de.danielglaser.himbeerheim.R
-import de.danielglaser.himbeerheim.model.Data
+import de.danielglaser.himbeerheim.model.DataSingleton
 import de.danielglaser.himbeerheim.model.Util
-import android.content.Intent
 
 
 /**
  * Created by Daniel on 28.07.2017.
  */
-class SettingsFragment() : PreferenceFragment(), Preference.OnPreferenceChangeListener {
+class SettingsFragment : PreferenceFragment(), Preference.OnPreferenceChangeListener {
 
     private val mTAG = "SettingsFragment"
 
-    lateinit var mData: Data
     private lateinit var prefs: SharedPreferences
 
     @SuppressLint("ValidFragment")
-    constructor(data: Data): this() {
-        retainInstance = true
-        this.mData = data
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        retainInstance = true
         addPreferencesFromResource(R.xml.preferences)
 
         prefs = PreferenceManager.getDefaultSharedPreferences(activity)
@@ -46,7 +42,7 @@ class SettingsFragment() : PreferenceFragment(), Preference.OnPreferenceChangeLi
 
     override fun onDestroy() {
         super.onDestroy()
-        mData.save()
+        DataSingleton.mData.save()
     }
 
     override fun onPreferenceChange(preference: Preference?, newValue: Any?): Boolean {
@@ -69,7 +65,7 @@ class SettingsFragment() : PreferenceFragment(), Preference.OnPreferenceChangeLi
                     return true
                 }
                 getString(R.string.path_key) -> {
-                    updatePathPref(this, preference, newValue)
+                    updatePathPref(preference, newValue)
                     return true
                 }
                 else -> return false
@@ -92,7 +88,7 @@ class SettingsFragment() : PreferenceFragment(), Preference.OnPreferenceChangeLi
     private fun initIpPref() {
         val preference = findPreference(getString(R.string.ip_key))
         preference.onPreferenceChangeListener = this
-        preference.summary = mData.host
+        preference.summary = DataSingleton.mData.host
 
         /*preference.setOnPreferenceChangeListener { preference, any ->
             if (preference is Preference) {
@@ -107,46 +103,46 @@ class SettingsFragment() : PreferenceFragment(), Preference.OnPreferenceChangeLi
 
     private fun updateIpPref(preference: Preference, value: String) {
         preference.summary = value
-        mData.host = value
+        DataSingleton.mData.host = value
     }
 
     private fun initPortPref() {
         val preference = findPreference(getString(R.string.port_key))
         preference.onPreferenceChangeListener = this
-        preference.summary = mData.port.toString()
+        preference.summary = DataSingleton.mData.port.toString()
     }
 
     private fun updatePortPref(preference: Preference, value: Int) {
         preference.summary = value.toString()
-        mData.port = value
+        DataSingleton.mData.port = value
     }
 
     private fun initUsernamePref() {
         val preference = findPreference(getString(R.string.username_key))
         preference.onPreferenceChangeListener = this
-        preference.summary = mData.username
+        preference.summary = DataSingleton.mData.username
     }
 
     private fun updateUsernamePref(preference: Preference, value: String) {
         preference.summary = value
-        mData.username = value
+        DataSingleton.mData.username = value
     }
 
     private fun initPasswordPref() {
         val preference = findPreference(getString(R.string.password_key))
         preference.onPreferenceChangeListener = this
-        preference.summary = mData.password
+        preference.summary = DataSingleton.mData.password
     }
 
     private fun updatePasswordPref(preference: Preference, value: String) {
         preference.summary = value
-        mData.password = value
+        DataSingleton.mData.password = value
     }
 
     private fun initPathPref() {
         val preference = findPreference(getString(R.string.path_key))
         preference.onPreferenceChangeListener = this
-        preference.summary = mData.getPath()
+        preference.summary = DataSingleton.mData.getPath()
     }
 
     private fun initThemePref() {
@@ -171,10 +167,8 @@ class SettingsFragment() : PreferenceFragment(), Preference.OnPreferenceChangeLi
         activity.startActivity(Intent(activity, activity.javaClass))
     }
 
-    companion object {
-        fun updatePathPref(settingsFragment: SettingsFragment, preference: Preference, value: String) {
-            preference.summary = value
-            settingsFragment.mData.updatePath(value)
-        }
+    private fun updatePathPref(preference: Preference, value: String) {
+        preference.summary = value
+        DataSingleton.mData.updatePath(value)
     }
 }
