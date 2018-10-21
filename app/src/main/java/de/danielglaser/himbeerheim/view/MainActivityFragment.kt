@@ -29,7 +29,7 @@ class MainActivityFragment : Fragment() {
         setHasOptionsMenu(true)
         retainInstance = true
 
-        sshConnection = DataSingleton.mData.m_sshConnection
+        sshConnection = DataSingleton.mData.sshConnection
 
         commandsAdapter = CommandsAdapter(activity, DataSingleton.mData.m_buttonCommands, sshConnection, mCallback)
     }
@@ -38,6 +38,8 @@ class MainActivityFragment : Fragment() {
         super.onResume()
 
         handleGridViewSize(resources.configuration)
+
+        DataSingleton.mData.initSSHConnection()
     }
 
     private fun handleGridViewSize(conf: Configuration) {

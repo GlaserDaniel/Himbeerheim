@@ -30,7 +30,7 @@ class Data : Serializable {
     var editNoticeCounter = 0
 
     @Transient
-    lateinit var m_sshConnection: SSHConnection
+    private lateinit var m_sshConnection: SSHConnection
 
     var host: String
         get() {
@@ -68,6 +68,18 @@ class Data : Serializable {
             initSSHConnection()
         }
 
+    var sshConnection: SSHConnection
+        get() {
+            if (m_sshConnection == null) {
+                initSSHConnection()
+            }
+            return m_sshConnection
+        }
+        set(value) {
+            m_sshConnection = value
+            initSSHConnection()
+        }
+
     init {
         load()
         initSSHConnection()
@@ -85,7 +97,7 @@ class Data : Serializable {
         return m_path
     }
 
-    private fun initSSHConnection() {
+    fun initSSHConnection() {
         m_sshConnection = SSHConnection(host = m_host, port = m_port, username = m_username, password = m_password)
     }
 
