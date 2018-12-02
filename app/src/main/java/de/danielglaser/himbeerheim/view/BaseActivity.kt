@@ -1,5 +1,6 @@
 package de.danielglaser.himbeerheim.view
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
@@ -12,6 +13,7 @@ import de.danielglaser.himbeerheim.model.Util
 /**
  * Created by Daniel on 29.07.2017.
  */
+@SuppressLint("Registered")
 open class BaseActivity: AppCompatActivity() {
 
     companion object {
