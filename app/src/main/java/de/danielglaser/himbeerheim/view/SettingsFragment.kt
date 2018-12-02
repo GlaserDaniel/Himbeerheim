@@ -83,8 +83,8 @@ class SettingsFragment() : PreferenceFragment(), Preference.OnPreferenceChangeLi
                 else -> false
             }
         } else {
-            Toast.makeText(activity, "Etwas ist schief gelaufen", Toast.LENGTH_SHORT).show()
-            Log.d(mTAG, "OnPrefenceChange(), preference no Preference or newValue no String")
+            Toast.makeText(activity, getString(R.string.something_went_wrong), Toast.LENGTH_SHORT).show()
+            Log.d(mTAG, "onPreferenceChange(), preference no Preference or newValue no String")
             return false
         }
     }
@@ -99,7 +99,7 @@ class SettingsFragment() : PreferenceFragment(), Preference.OnPreferenceChangeLi
                 Toast.makeText(activity, preference.toString() + " : " + any, Toast.LENGTH_SHORT).show()
                 true
             } else {
-                Toast.makeText(activity, "Etwas ist schief gelaufen", Toast.LENGTH_SHORT).show()
+                Toast.makeText(activity, getString(R.string.something_went_wrong), Toast.LENGTH_SHORT).show()
                 false
             }
         }*/

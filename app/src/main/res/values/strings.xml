@@ -30,5 +30,6 @@
     <string name="error_connectTimeout">Connection failed</string>
     <string name="turnPiOff">Turn Raspberry Pi off</string>
     <string name="welcome_dialog_title">Welcome</string>
-    <string name="welcome_dialog_text">Welcome to this app!\\n\\nTo use this app you need a Raberry Pi with a 433 MHz sender.</string>
+    <string name="welcome_dialog_text">Welcome to this app!\\n\\nTo use this app you need a Raspberry Pi with a 433 MHz sender.</string>
+    <string name="something_went_wrong">Something went wrong!</string>
 </resources>
