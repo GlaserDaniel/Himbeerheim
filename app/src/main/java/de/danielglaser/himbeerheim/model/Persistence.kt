@@ -18,8 +18,8 @@ class Persistence {
             os.writeObject(`object`)
             os.close()
             fos.close()
-        } catch (e: Exception) { //TODO Eigentlich nur IOException, aber kann im Moment auch ConcurrentModificationException kommen
-            Log.e(ContentValues.TAG, "Fehler beim Speichern des Objektes", e)
+        } catch (e: Exception) { //TODO Usually only IOException, but in the moment it can also be ConcurrentModificationException
+            Log.e(ContentValues.TAG, "Error while saving the object: ", e)
         }
     }
 
@@ -36,7 +36,7 @@ class Persistence {
                 fis.close()
             }
         } catch (e: Exception) {
-            Log.e(ContentValues.TAG, "Fehler beim lesen des Objektes", e)
+            Log.e(ContentValues.TAG, "Error while reading the object: ", e)
         }
 
         return result
