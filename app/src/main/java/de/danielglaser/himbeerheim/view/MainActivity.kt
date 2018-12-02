@@ -36,23 +36,6 @@ class MainActivity : BaseActivity(), MainActivityFragment.MainActivityFragmentLi
             return
         }
 
-        /*// Wenn App das erste mal startet
-
-        if (DataSingleton.mData.m_buttonCommands.size == 0 && DataSingleton.mData.host.isBlank()) {
-            // Erste Buttons hinzufügen
-            val code = ArrayList<Any>()
-            code.add(0)
-            code.add(1)
-            code.add(1)
-            code.add(1)
-            code.add(0)
-            DataSingleton.mData.m_buttonCommands.add(ButtonCommand("Licht Wohnstube", code, 2, DataSingleton.mData.getPath()))
-            DataSingleton.mData.m_buttonCommands.add(ButtonCommand("TV", code, 3, DataSingleton.mData.getPath()))
-
-            code[4] = 1
-            DataSingleton.mData.m_buttonCommands.add(ButtonCommand("Nachtlicht", code, 4, DataSingleton.mData.getPath()))
-        }*/
-
         loadMainActivityFragment()
 
         firstStart()

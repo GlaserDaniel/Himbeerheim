@@ -23,5 +23,6 @@
     <string name="error_connectTimeout">Verbindung fehlgeschlagen</string>
     <string name="turnPiOff">Schalte Raspberry Pi aus</string>
     <string name="welcome_dialog_title">Willkommen</string>
-    <string name="welcome_dialog_text">Willkommen zu dieser App!\\n\\nUm diese App zu nutzen benötigen sie einen Rasberry Pi mit einem 433 MHz Sender.</string>
+    <string name="welcome_dialog_text">Willkommen zu dieser App!\\n\\nUm diese App zu nutzen benötigen sie einen Raspberry Pi mit einem 433 MHz Sender.</string>
+    <string name="something_went_wrong">Etwas ist schiefgelaufen!</string>
 </resources>

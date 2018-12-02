@@ -57,7 +57,7 @@ class ButtonCommand : Serializable {
     }
 
     fun getCodeBool() : ArrayList<Boolean> {
-        var code: ArrayList<Boolean> = ArrayList()
+        val code: ArrayList<Boolean> = ArrayList()
          m_code.mapTo(code) { intToBool(it) }
 
         return code
