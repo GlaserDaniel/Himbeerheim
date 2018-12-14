@@ -12,4 +12,9 @@
         android:orderInCategory="101"
         android:title="@string/powerOffRaspberryPi"
         app:showAsAction="never" />
+    <item
+        android:id="@+id/action_tutorial"
+        android:orderInCategory="102"
+        android:title="@string/tutorial_dialog_title"
+        app:showAsAction="never" />
 </menu>

@@ -23,6 +23,45 @@
     <string name="error_connectTimeout">Verbindung fehlgeschlagen</string>
     <string name="turnPiOff">Schalte Raspberry Pi aus</string>
     <string name="welcome_dialog_title">Willkommen</string>
-    <string name="welcome_dialog_text">Willkommen zu dieser App!\\n\\nUm diese App zu nutzen benötigen sie einen Raspberry Pi mit einem 433 MHz Sender.</string>
+    <string name="welcome_dialog_text">
+        Willkommen zu dieser App!
+        \n
+        \nMit dieser App kannst du Funksteckdosen steuern.
+        \n
+        \nUm diese App nutzen zu können, benötigst du einen Raspberry Pi mit installiertem WiringPi und Raspberry-Remote, einen 433 MHz Sender und Funksteckdosen.
+        \n
+        \nStelle in den Einstellungen die IP Adresse, Port, Benutzername und Passwort des Raspberry Pi ein.
+        \n
+        \nEine genauere Anleitung um den Raspberry Pi einzurichten kann im Menü gefunden werden.
+        \n
+        \nHab Spaß beim Nutzen der App! :-)
+    </string>
+    <string name="tutorial_dialog_title">Anleitung</string>
+    <string name="tutorial_dialog_text">
+        Um diese App nutzen zu können, benötigst du einen Raspberry Pi mit einem 433 MHz Sender und installiertem WiringPi und Raspberry-Remote.
+        \nDer 433 MHz Sender muss passend an den Raspberry Pi angeschlossen werden. (Recherchiere im Internet danach)
+        \n
+        \nDie folgenden Befehle am Raspberry Pi ausführen:
+        \nInstalliere git mit dem Befehl:
+        \nsudo apt-get install git-core
+        \n
+        \nInstalliere WiringPi mit dem Befehl:
+        \ngit clone git://git.drogon.net/wiringPi
+        \ncd wiringPi
+        \n./build
+        \n
+        \nInstalliere Raspberry-Remote mit dem Befehl:
+        \ncd ~
+        \ngit clone git://github.com/xkonni/raspberry-remote.git
+        \ncd raspberry-remote
+        \nmake send
+        \n
+        \nDer Standard Pfad zur send-Datei ist bereits in den Einstellungen eingestellt.
+        \n
+        \nDas war's. Füge nun Funksteckdosen zur App hinzu.
+        \nDie Schalter repräsentieren die Schalter an den Funksteckdosen.
+        \n
+        \nFür eine noch genauere Anleitung suche im Internet nach "Raspberry Pi Funksteckdosen wiringPi Raspberry-remote". Es gibt auch Videos dazu! :-)
+    </string>
     <string name="something_went_wrong">Etwas ist schiefgelaufen!</string>
 </resources>

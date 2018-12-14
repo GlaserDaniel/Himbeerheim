@@ -43,33 +43,36 @@ class MainActivityFragment : Fragment() {
     }
 
     private fun handleGridViewSize(conf: Configuration) {
+        if (view == null || view?.buttons_gridView == null) {
+            return
+        }
         if (conf.isLayoutSizeAtLeast(Configuration.SCREENLAYOUT_SIZE_XLARGE)) {
             //großes Tablet
             if (conf.orientation == Configuration.ORIENTATION_PORTRAIT) {
-                view.buttons_gridView.numColumns = 3
+                view?.buttons_gridView!!.numColumns = 3
             } else if (conf.orientation == Configuration.ORIENTATION_LANDSCAPE){
-                view.buttons_gridView.numColumns = 8
+                view?.buttons_gridView!!.numColumns = 8
             }
         } else if (conf.isLayoutSizeAtLeast(Configuration.SCREENLAYOUT_SIZE_LARGE)) {
             //kleines Tablet
             if (conf.orientation == Configuration.ORIENTATION_PORTRAIT) {
-                view.buttons_gridView.numColumns = 2
+                view?.buttons_gridView!!.numColumns = 2
             } else if (conf.orientation == Configuration.ORIENTATION_LANDSCAPE){
-                view.buttons_gridView.numColumns = 4
+                view?.buttons_gridView!!.numColumns = 4
             }
         } else if (conf.isLayoutSizeAtLeast(Configuration.SCREENLAYOUT_SIZE_NORMAL)) {
             //normales Smartphone
             if (conf.orientation == Configuration.ORIENTATION_PORTRAIT) {
-                view.buttons_gridView.numColumns = 2
+                view?.buttons_gridView!!.numColumns = 2
             } else if (conf.orientation == Configuration.ORIENTATION_LANDSCAPE){
-                view.buttons_gridView.numColumns = 4
+                view?.buttons_gridView!!.numColumns = 4
             }
         } else if (conf.isLayoutSizeAtLeast(Configuration.SCREENLAYOUT_SIZE_SMALL)) {
             //kleines Smartphone
             if (conf.orientation == Configuration.ORIENTATION_PORTRAIT) {
-                view.buttons_gridView.numColumns = 1
+                view?.buttons_gridView!!.numColumns = 1
             } else if (conf.orientation == Configuration.ORIENTATION_LANDSCAPE){
-                view.buttons_gridView.numColumns = 2
+                view?.buttons_gridView!!.numColumns = 2
             }
         }
     }
@@ -91,8 +94,12 @@ class MainActivityFragment : Fragment() {
                 Toast.makeText(activity, "Result: $result", Toast.LENGTH_SHORT).show()
                 true
             }
-        //R.id.search -> consume { MenuItemCompat.expandActionView(item) }
-        //R.id.settings -> consume { navigateToSettings() }
+            R.id.action_tutorial -> {
+                mCallback.onTutorialSelected()
+                true
+            }
+            //R.id.search -> consume { MenuItemCompat.expandActionView(item) }
+            //R.id.settings -> consume { navigateToSettings() }
             else -> super.onOptionsItemSelected(item)
         }
     }
@@ -161,6 +168,7 @@ class MainActivityFragment : Fragment() {
     interface MainActivityFragmentListener {
         fun onButtonCommandSelected(buttonCommand: ButtonCommand)
         fun onSettingsSelected()
+        fun onTutorialSelected()
     }
 
     override fun onAttach(context: Context?) {

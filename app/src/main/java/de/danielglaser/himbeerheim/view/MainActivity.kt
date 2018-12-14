@@ -69,6 +69,19 @@ class MainActivity : BaseActivity(), MainActivityFragment.MainActivityFragmentLi
         alert.show()
     }
 
+    private fun showTutorialDialog() {
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle(R.string.tutorial_dialog_title)
+                .setMessage(R.string.tutorial_dialog_text)
+                .setCancelable(false)
+                .setPositiveButton(android.R.string.ok) { _, _ ->
+                    // make nothing, just close the dialog
+                }
+
+        val alert = builder.create()
+        alert.show()
+    }
+
     private fun loadMainActivityFragment() {
         val manager = fragmentManager
         manager.popBackStack()
@@ -106,6 +119,10 @@ class MainActivity : BaseActivity(), MainActivityFragment.MainActivityFragmentLi
 
     override fun onSettingsSelected() {
         loadSettingsFragment()
+    }
+
+    override fun onTutorialSelected() {
+        showTutorialDialog()
     }
 
     override fun onSaveSelectedListener() {
