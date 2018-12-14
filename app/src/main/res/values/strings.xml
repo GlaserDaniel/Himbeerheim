@@ -65,7 +65,7 @@
         \n
         \nThe default path to the send-file is already set in the settings.
         \n
-        \nThat's it. Now add remote control outlets to the app.
+        \nThat\'s it. Now add remote control outlets to the app.
         \nThe switches represents the switches on the remote control outlet.
         \n
         \nFor a more detailed tutorial search the internet for "Raspberry Pi remote control outlet wiringPi Raspberry-remote". There are videos! :-)
