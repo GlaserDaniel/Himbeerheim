@@ -18,7 +18,7 @@
     <string name="Theme_Category">Design</string>
     <string name="port">Port</string>
     <string name="path_text">Der Pfad zur send Datei</string>
-    <string name="error_hostNotSet">Host nicht gesetzt</string>
+    <string name="error_hostNotSet">IP Adresse nicht gesetzt</string>
     <string name="error_usernameNotSet">Benutzername nicht gesetzt</string>
     <string name="error_connectTimeout">Verbindung fehlgeschlagen</string>
     <string name="turnPiOff">Schalte Raspberry Pi aus</string>

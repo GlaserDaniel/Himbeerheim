@@ -25,7 +25,7 @@
     <string name="port">Port</string>
     <string name="path_text">The path to the send file</string>
     <string name="path_key" translatable="false">path</string>
-    <string name="error_hostNotSet">Host not set</string>
+    <string name="error_hostNotSet">IP address not set</string>
     <string name="error_usernameNotSet">Username not set</string>
     <string name="error_connectTimeout">Connection failed</string>
     <string name="turnPiOff">Turn Raspberry Pi off</string>
