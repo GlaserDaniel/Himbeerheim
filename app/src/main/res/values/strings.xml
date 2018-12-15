@@ -33,7 +33,7 @@
     <string name="welcome_dialog_text">
         Welcome to this app!
         \n
-        \nWith this app you can control wireless sockets.
+        \nWith this app you can control remote outlets.
         \n
         \nTo use this app you need a Raspberry Pi with installed WiringPi and Raspberry-Remote, a 433 MHz sender and remote control outlets.
         \n
